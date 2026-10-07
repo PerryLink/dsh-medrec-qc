@@ -1,0 +1,347 @@
+# 病案首页形式质控 规则库
+#
+# 规则数据与代码分离：替换本文件即可切换规则集版本，无需改动 TypeScript。
+#
+# 条款引用纪律（由 shared/ruleset.ts 强制校验）：
+#   - 每条规则必须写全 document / number / clause / excerpt / kind / source，
+#     且 excerpt 必须是逐字摘录，不得改写。
+#   - kind: direct                       条款直接规定了所检查的要求
+#   - kind: derived-from-principle       条款未直接规定，仅能由原则性条款推论（severity 最多 warn）
+#   - kind: institutional-configuration  阈值出自本机构/本省规定而非国家标准（severity 最多 info）
+#
+# 《民法典》侵权责任编的两条相关条文（已逐字核对，见 rules/evidence/clause-verification-civilcode.md）：
+#   · **第一千二百二十五条**「医疗机构及其医务人员应当**按照规定填写并妥善保管**住院志、医嘱单、检验报告、
+#     手术及麻醉记录、病理资料、**护理记录**等**病历资料**。」⇒ 本插件所核对的记录**属于法定病历资料**，
+#     "应当填写并妥善保管"**有法律层面的依据**；部门规范是它的**具体化**（"按照规定"是转致条款）。
+#   · **第一千二百五十九条**「民法所称的"**以上**""**以下**""**以内**""**届满**"，**包括本数**；
+#     所称的"**不满**""**超过**""**以外**"，**不包括本数**。」
+#     ⇒ ⚠️ **本规则库带边界值的检查（时限、份数、页数、长度）在"等于边界值"时的行为必须与所引条文的用语一致**，
+#     且**必须在规则 note 里写明等号处取"含"还是"不含"**。这是一项跨插件的口径要求。
+#   · ⚠️ **《民法典》自 2021-01-01 施行**（第一千二百六十条），同时废止**《合同法》《侵权责任法》等九部法律**
+#     ⇒ **引用《侵权责任法》即为引用已废止法律**，本库不得引用。
+#   ⚠️ **但本插件的规则仍不升为 direct**：第一千二百二十五条未规定"时限"，也未规定具体栏位；
+#     时限与栏位出自 卫健委的规章与规范性文件（卫医政发〔2011〕84 号、国卫办医发〔2016〕24 号等）（**其全文本次仍未取得**）——
+#     那才是本插件把 kind 升为 direct 的前提。
+#
+# 三条容易搞错的边界（核验中确认，务必保留）：
+#   1. 必填项清单的准确依据是国卫办医发〔2016〕24号**附件1「住院病案首页必填项目列表」共76项**，
+#      且附件1没有名为「医师签名」的项，而是「科主任／主任（副主任）医师／主治医师／住院医师」分列。
+#   2. 「年龄不足1周岁」的书写格式明文在**卫医政发〔2011〕84号 附件 二（六）**，不在11号文；
+#      11号文第十八条只把「年龄」列为入院记录的一般情况项，未规定书写格式。
+#   3. 「诊断与患者性别不符」在卫生口径**无明文条款**；国家医保局「两库」已公开明细覆盖
+#      A/B/C/D/E/F/I/J/K/L/M 共 11 个字母章节，**O 章（妊娠分娩产褥期）条目数为 0**。
+#      因此「男性不得有妊娠诊断」不得标为国家明文，只能作提示。
+#
+# 条款号写法：本规则库混用两类编号体系，各自保留原文格式——
+#   24号文《规范（暂行）》用「第X条」，其附件1/附件2 用「附件1 序号51」；
+#   84号文附件用「附件 二（六）」；11号文用「第X条」；医保办发〔2020〕20号用「附件1 说明一 2」。
+
+plugin: dsh-medrec-qc
+version: "2026.1"
+
+rules:
+  - id: MR-001
+    title: 必填项栏目宜不为空
+    severity: warn
+    basis:
+      document: 《住院病案首页数据质量管理与控制指标（2016版）》
+      number: 国卫办医发〔2016〕24号
+      clause: 附件1 注
+      excerpt: 注：必填栏不能为空项，没有可填写内容时填写"-"
+      kind: direct
+      source: http://hncis.hnwsjk.cn/bingan/upload/files/2024/6/3813adce8fc5b87f.pdf
+    params:
+      fields:
+        - 病案号
+        - 入院时间
+        - 出院时间
+        - 性别
+        - 出生日期
+        - 年龄
+        - 离院方式
+        - 科主任
+        - 主任（副主任）医师
+        - 主治医师
+        - 住院医师
+        - 责任护士
+        - 编码员
+        - 主要诊断名称
+        - 主要诊断编码
+      allowDash: true
+    note: >-
+      ⚠️ **本条严重级已于 2026-10-07 由 error 降为 warn**，因为**它唯一的依据取不到**
+      （见 rules/evidence/clause-verification-homepage-spec.md）：
+      本条引的是**24号文附件1 的表头注释**，而该附件是 PDF、**本环境无法解码**
+      （source 指向的 PDF 实测确实返回 `application/pdf`，即**来源存在、只是读不了**）。
+      ⇒ **"必填栏不能为空"这条要求本次未取得可逐字引用的条文**，
+      **无可核对条文的规则不应阻断流程**，故降为 warn。
+      ✅ **84号文附件2「一、基本要求」（三）有同类明文且已逐字核对**
+      （「栏目中没有可填写内容的，填写"-"」，见 clause-verification-medical-record-84.md），
+      但那句话规范的是**空格怎么填**，**不是"必填项不得为空"** —— 故它不足以支撑 error 级。
+      依据为24号文附件1「住院病案首页必填项目列表」共 76 项及其表头注释。
+      填写「-」视为已按原文处理，不报差异；本条只报真正留空的栏目。
+      ⚠️ **该附件是 PDF，本环境读不了，故本条引文仍未逐字核对**（见 rules/evidence/clause-verification-medical-record-84.md）：
+      `source` 指向的湖南 PDF 实测**确实返回 `application/pdf`**（**链接有效，只是本环境无法解码**），
+      且 **24 号文的两个附件同样是 PDF**。⇒ **来源存在且已定位，缺的只是本环境的读取能力。**
+      ✅ **但本次取得了一份有力的旁证**：**卫医政发〔2011〕84 号附件 2「一、基本要求」（三）逐字**规定
+      「凡栏目中有"□"的，应当在"□"内填写适当阿拉伯数字。**栏目中没有可填写内容的，填写"-"。**
+      如：联系人没有电话，在电话处填写"-"。」
+      ⇒ **"没有内容填 -"这条规则在 84 号文里有逐字明文**（本条引文与之一致），
+      故尽管 24 号文附件的措辞未能核对，**本条所依据的规则本身是有明文来源的**。
+      本条的检查行为不受影响。
+
+  - id: MR-002
+    title: 入院时间与出院时间应填写且精确到分钟
+    severity: error
+    basis:
+      document: 《住院病案首页数据填写质量规范（暂行）》
+      number: 国卫办医发〔2016〕24号
+      clause: 第八条
+      excerpt: 入院时间是指患者实际入病房的接诊时间；出院时间是指患者治疗结束或终止治疗离开病房的时间，其中死亡患者是指其死亡时间；记录时间应当精确到分钟。
+      kind: direct
+      source: http://ywc.jlu.edu.cn/info/1037/1405.htm
+    params:
+      fields:
+        - 入院时间
+        - 出院时间
+      requireMinute: true
+    note: 附件1 序号5「入院时间」与序号9「出院时间」均在必填列表内，且附件2 质量评分标准各占 2 分。
+
+  - id: MR-003
+    title: 出院时间不应早于入院时间
+    severity: error
+    basis:
+      document: 《住院病案首页数据填写质量规范（暂行）》
+      number: 国卫办医发〔2016〕24号
+      clause: 第八条
+      excerpt: 入院时间是指患者实际入病房的接诊时间；出院时间是指患者治疗结束或终止治疗离开病房的时间
+      kind: direct
+      source: http://ywc.jlu.edu.cn/info/1037/1405.htm
+    note: 本条按时间字段本身的字面先后关系列出差异。
+
+  - id: MR-004
+    title: 实际住院天数应与入出院日期一致
+    severity: error
+    basis:
+      document: 《卫生部关于修订住院病案首页的通知》
+      number: 卫医政发〔2011〕84号
+      clause: 附件 二（十九）
+      excerpt: 实际住院天数：入院日与出院日只计算一天，例如：2011 年 6 月 12 日入院，2011 年 6 月 15 日出院，计住院天数为 3 天。
+      kind: direct
+      source: http://hncis.hnwsjk.cn/bingan/upload/files/2024/6/61f8f4ed5c7051ae.pdf
+    params:
+      field: 实际住院天数
+      allowZero: true
+    note: 计天规则为「出院日 − 入院日」，同日入出院计 0 天；原文示例中 6/12 入院、6/15 出院计 3 天，与末日不计的算法一致。
+
+  - id: MR-005
+    title: 主要诊断名称与编码应同时填写
+    severity: error
+    basis:
+      document: 《住院病案首页数据填写质量规范（暂行）》
+      number: 国卫办医发〔2016〕24号
+      clause: 第六条
+      excerpt: 疾病诊断编码应当统一使用ICD-10,手术和操作编码应当统一使用ICD-9-CM-3。
+      kind: direct
+      source: http://ywc.jlu.edu.cn/info/1037/1405.htm
+    params:
+      fields:
+        - 主要诊断名称
+        - 主要诊断编码
+    note: >-
+      附件1 序号30「（主要出院诊断）名称」与序号33「（主要出院诊断）编码」均在必填列表内，
+      附件2 质量评分标准中「出院主要诊断」4 分、「主要诊断编码」4 分。
+      本条只核对两者是否同时存在，不判断编码本身是否正确（那需要外部编码库版本与人工复核）。
+
+  - id: MR-006
+    title: 主要诊断编码应使用 ICD-10 形式
+    severity: error
+    basis:
+      document: 《住院病案首页数据填写质量规范（暂行）》
+      number: 国卫办医发〔2016〕24号
+      clause: 第六条
+      excerpt: 疾病诊断编码应当统一使用ICD-10,手术和操作编码应当统一使用ICD-9-CM-3。
+      kind: direct
+      source: http://ywc.jlu.edu.cn/info/1037/1405.htm
+    params:
+      pattern: '^[A-Z][0-9]{2}(\.[0-9A-Z]{1,4})?$'
+    note: 形式核对，不校验编码是否存在于某一版本的分类目录中。
+
+  - id: MR-007
+    title: 有手术或操作时应填写主要手术名称与编码
+    severity: error
+    basis:
+      document: 《住院病案首页数据填写质量规范（暂行）》
+      number: 国卫办医发〔2016〕24号
+      clause: 第二十二条
+      excerpt: 多个术式时，主要手术首先选择与主要诊断相对应的手术。一般是技术难度最大、过程最复杂、风险最高的手术，应当填写在首页手术操作名称栏中第一行。
+      kind: direct
+      source: http://ywc.jlu.edu.cn/info/1037/1405.htm
+    params:
+      nameField: 主要手术名称
+      codeField: 主要手术编码
+      hasSurgeryField: 有手术操作
+    note: >-
+      附件1 序号41「（主要手术）名称」为必填项；本条在有手术时核对名称与编码是否同时填写。
+      ✅ **本条 `excerpt` 已逐字核对通过**（24 号文正文第二十二条，见 rules/evidence/clause-verification-homepage-spec.md）。
+      ✅ **另有更直接的明文**：该引文**「应当填写在首页手术操作名称栏中第一行」**的出处已逐字核到 ——
+      **卫医政发〔2011〕84 号附件 2（三十一）**：「手术及操作名称：……**表格中第一行应当填写本次住院的
+      主要手术和操作名称。**」（（二十九）对**编码**作同样规定）
+      见 rules/evidence/clause-verification-medical-record-84.md。
+      ⚠️ 仍未能核对的是**附件1 的必填项清单本身**（PDF，本环境读不了），故"序号41为必填"这一句未逐字核对。
+
+  - id: MR-008
+    title: 主要手术编码应使用 ICD-9-CM-3 形式
+    severity: error
+    basis:
+      document: 《住院病案首页数据填写质量规范（暂行）》
+      number: 国卫办医发〔2016〕24号
+      clause: 第六条
+      excerpt: 疾病诊断编码应当统一使用ICD-10,手术和操作编码应当统一使用ICD-9-CM-3。
+      kind: direct
+      source: http://ywc.jlu.edu.cn/info/1037/1405.htm
+    params:
+      pattern: '^[0-9]{2}(\.[0-9]{1,4})?$'
+    note: 形式核对，不校验编码是否存在于某一版本的手术操作分类目录中。
+
+  - id: MR-009
+    title: 医师签名应体现三级医师负责制
+    severity: error
+    basis:
+      document: 《卫生部关于修订住院病案首页的通知》
+      number: 卫医政发〔2011〕84号
+      clause: 附件 二（二十八）1
+      excerpt: 医师签名要能体现三级医师负责制。三级医师指住院医师、主治医师和具有副主任医师以上专业技术职务任职资格的医师。
+      kind: direct
+      source: http://hncis.hnwsjk.cn/bingan/upload/files/2024/6/61f8f4ed5c7051ae.pdf
+    params:
+      fields:
+        - 住院医师
+        - 主治医师
+        - 主任（副主任）医师
+    note: 24号文附件1 将「科主任／主任（副主任）医师／主治医师／住院医师」分列，附件1 中没有名为「医师签名」的项，不得写成「依24号文医师签名必填」。
+
+  - id: MR-010
+    title: 离院方式应填写规定代码
+    severity: error
+    basis:
+      document: 《卫生部关于修订住院病案首页的通知》
+      number: 卫医政发〔2011〕84号
+      clause: 附件 二（三十四）
+      excerpt: 5.死亡（代码为5）。指患者在住院期间死亡。
+      kind: direct
+      source: http://hncis.hnwsjk.cn/bingan/upload/files/2024/6/61f8f4ed5c7051ae.pdf
+    params:
+      field: 离院方式
+      allowed:
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '9'
+    note: >-
+      84号文附件 二（三十四）逐项列出 1 医嘱离院、2 医嘱转院、3 医嘱转社区、4 非医嘱离院、5 死亡、9 其他；
+      本条只核对取值是否在上述代码内，不判断选择是否正确。
+
+  - id: MR-011
+    title: 年龄应按实足年龄与月龄分数形式填写
+    severity: warn
+    basis:
+      document: 《卫生部关于修订住院病案首页的通知》
+      number: 卫医政发〔2011〕84号
+      clause: 附件 二（六）
+      excerpt: 年龄：指患者的实足年龄，为患者出生后按照日历计算的历法年龄。年龄满1 周岁的，以实足年龄的相应整数填写；年龄不足1 周岁的，按照实足年龄的月龄填写，以分数形式表示
+      kind: direct
+      source: http://hncis.hnwsjk.cn/bingan/upload/files/2024/6/61f8f4ed5c7051ae.pdf
+    params:
+      field: 年龄
+      underOnePattern: '^[0-9]{1,2}( [0-9]{1,2}/30)? 月$'
+      adultPattern: '^[0-9]{1,3}$'
+    note: >-
+      卫生口径的明文是「不足1周岁按实足月龄、以分母 30 的分数形式填写」。
+      「不足1个月必须写日龄」在本规则库核验的全部国家级文件中均无此表述，故不作检查。
+      医保口径另规定「年龄不足1周岁按实足天龄整数填写」（医保办发〔2020〕20号），两套口径不一致，
+      本规则库不互斥二者，仅在明显不符合任一形式时提示。
+
+  - id: MR-012
+    title: 新生儿体重应精确到 10 克
+    severity: warn
+    basis:
+      document: 《卫生部关于修订住院病案首页的通知》
+      number: 卫医政发〔2011〕84号
+      clause: 附件 二（七）
+      excerpt: 从出生到28 天为新生儿期。出生日为第0 天。产妇病历应当填写"新生儿出生体重"；新生儿期住院的患儿应当填写"新生儿出生体重"、"新生儿入院体重"。
+      kind: direct
+      source: http://hncis.hnwsjk.cn/bingan/upload/files/2024/6/61f8f4ed5c7051ae.pdf
+    params:
+      fields:
+        - 新生儿出生体重
+        - 新生儿入院体重
+      multipleOf: 10
+      unitHint: 克
+    note: 原文另明确「要求精确到10 克」。本条只核对数值是否为 10 的整数倍，不判断体重是否异常。
+
+  - id: MR-013
+    title: 其他诊断应按病情与治疗顺序填写
+    severity: warn
+    basis:
+      document: 《住院病案首页数据填写质量规范（暂行）》
+      number: 国卫办医发〔2016〕24号
+      clause: 第十九条
+      excerpt: 填写其他诊断时，先填写主要疾病并发症，后填写合并症；先填写病情较重的疾病，后填写病情较轻的疾病；先填写已治疗的疾病，后填写未治疗的疾病。
+      kind: direct
+      source: http://ywc.jlu.edu.cn/info/1037/1405.htm
+    params:
+      field: 其他诊断
+      maxChecked: 3
+    note: 顺序正确性需要临床判断，本条只核对其他诊断条数上限并在超出时提示人工复核排序原则。
+
+  - id: MR-014
+    title: 诊断与患者性别不符的情形需人工核实
+    severity: warn
+    basis:
+      document: 国家医疗保障局"两库"知识点（诊断与患者性别不符）
+      number: 国家医疗保障局公告（第二十一批）
+      clause: 附件 表头
+      excerpt: 序号 ｜ 诊断代码（ICD-10医保2.0版）｜ 诊断名称（ICD-10医保2.0版）｜ 限定性别 ｜ 检出逻辑 ｜ 逻辑依据
+      kind: derived-from-principle
+      source: https://www.nhsa.gov.cn/art/2026/9/8/art_109_22052.html
+    params:
+      sexField: 性别
+      diagnosisFields:
+        - 主要诊断名称
+        - 其他诊断
+      rules:
+        - sex: '1'
+          label: 男
+          pattern: 妊娠|分娩|产褥|子宫|卵巢|输卵管|阴道|宫颈|月经|胎盘|羊水|畸胎瘤|前列腺|睾丸|附睾|精囊|乳腺增生
+        - sex: '2'
+          label: 女
+          pattern: 前列腺|睾丸|附睾|精囊|阴茎|包皮|输精管
+    note: >-
+      卫生口径（24号文、11号文、2013年版病历管理规定）无「性别与诊断必须相容」的明文条款。
+      国家医保局「两库」有该规则类型，但已公开明细实测覆盖 A/B/C/D/E/F/I/J/K/L/M 共 11 个字母章节，
+      O 章（妊娠分娩产褥期）条目数为 0，且答记者问明确体现允许临床合理性例外。
+      因此本条为提示级，不得作为阻断，须由人工核实。
+
+  - id: MR-015
+    title: 离院方式为死亡时出院时间应为死亡时间
+    severity: info
+    basis:
+      document: 《住院病案首页数据填写质量规范（暂行）》
+      number: 国卫办医发〔2016〕24号
+      clause: 第八条
+      excerpt: 出院时间是指患者治疗结束或终止治疗离开病房的时间，其中死亡患者是指其死亡时间
+      kind: derived-from-principle
+      source: http://ywc.jlu.edu.cn/info/1037/1405.htm
+    params:
+      dischargeModeField: 离院方式
+      deathCode: '5'
+      dischargeTimeField: 出院时间
+      deathTimeField: 死亡时间
+    note: >-
+      未核实到「离院方式=5 ⇒ 必须另有死亡时间」的独立明文条款；本条依据第八条对出院时间的定义，
+      为推导性提示，故封顶 info 级。
+
+disabled: []

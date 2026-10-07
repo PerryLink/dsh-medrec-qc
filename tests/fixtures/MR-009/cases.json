@@ -1,0 +1,22 @@
+{
+  "ruleId": "MR-009",
+  "note": "违规样本保留「主任医师」列但把单元格清空，模拟栏目存在而签名缺失；若整列缺失则属不可执行，会进入 skipped。",
+  "pairs": [
+    {
+      "name": "expected-state",
+      "material": "MR-009-compliant.yaml",
+      "expect": {
+        "ruleId": "MR-009",
+        "count": 0
+      }
+    },
+    {
+      "name": "signature-cell-empty",
+      "material": "MR-009-unsafe.yaml",
+      "expect": {
+        "ruleId": "MR-009",
+        "count": 1
+      }
+    }
+  ]
+}

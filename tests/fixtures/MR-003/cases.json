@@ -1,0 +1,21 @@
+{
+  "ruleId": "MR-003",
+  "pairs": [
+    {
+      "name": "expected-state",
+      "material": "MR-003-compliant.yaml",
+      "expect": {
+        "ruleId": "MR-003",
+        "count": 0
+      }
+    },
+    {
+      "name": "difference-present",
+      "material": "MR-003-unsafe.yaml",
+      "expect": {
+        "ruleId": "MR-003",
+        "count": 1
+      }
+    }
+  ]
+}
