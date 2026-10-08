@@ -57,8 +57,7 @@ a check goes missing without anyone noticing.
 ## Install
 
 ```sh
-pnpm pack
-dsh plugin --profile <name> add ./dsh-medrec-qc-0.1.0.tgz
+dsh plugin --profile <name> add dsh-medrec-qc
 dsh --profile <name> --dump-config | grep 'dsh-medrec-qc'
 ```
 

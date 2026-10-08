@@ -23,8 +23,7 @@ front sheet and reports literal mismatches against cited clauses.
 ## Install
 
 ```sh
-pnpm pack
-dsh plugin --profile <name> add ./*.tgz
+dsh plugin --profile <name> add dsh-medrec-qc
 dsh --profile <name> --dump-config | grep 'dsh-medrec-qc'
 ```
 
