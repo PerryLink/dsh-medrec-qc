@@ -1,4 +1,26 @@
-# dsh-medrec-qc
+# dsh-medrec-qc — Form check and logic-contradiction prompts for the inpatient medical record front sheet
+
+`dsh-medrec-qc` reads an export of the inpatient medical record front sheet (病案首页), one row per discharge, in the column set of the national assessment export, the health statistics export or a hospital-local export, and checks that export's own form completeness, internal arithmetic and coding form: that each required column carries content or the `-` marker, that the admission and discharge times are present, precise to the minute and not in the wrong order, that the declared length of stay agrees with the two dates, that the primary diagnosis name and code and the primary operation name and code are filled together, that the codes have the written form the pack configures, that the three signature columns reflect three-level physician responsibility, that the discharge mode is one of the defined codes, that the age and the neonatal weights use the prescribed forms, that the count of other diagnoses stays within the configured ceiling, and that a diagnosis incompatible with the recorded sex or two disagreeing times in a death discharge are surfaced for human review.
+
+## What it answers
+
+| You ask | What it answers |
+|---|---|
+| A required column is left empty, but I typed `-` in it. Is that reported? | No. `MR-001` treats a lone `-` as the marker for 'nothing to record here' and reports only the columns that are truly blank. It checks that a required column carries content, not that the content is correct, and it is capped at `warn` because the attachment it cites is a PDF this environment cannot decode. The same `-` still counts as a missing signature under `MR-009`. |
+| The admission time is written as a bare date with no hour or minute, and on one row the discharge time is earlier than the admission time. | `MR-002` reports a `入院时间` or `出院时间` value that can be read only to the day, because the recorded time must be precise to the minute, and it also reports a value it cannot parse as a date and time at all. `MR-003` compares the literal order of the two fields and reports the row where the discharge time comes first. Both work on the literal values and neither decides which of the two times is the true one. |
+| The front sheet says `5` days, but the dates are 12 June in and 15 June out. | `MR-004` recounts the days as discharge date minus admission date and reports the row when the declared `实际住院天数` disagrees; admission and discharge on the same day count as `0` days, and a value that is not a whole number of days is reported too. It compares the three stored values only and does not decide which of them is wrong. |
+| `主要诊断名称` is filled in but `主要诊断编码` is blank, and another row carries a code in a strange shape. | `MR-005` requires the two to be filled together and names the one that is missing; it checks only that both exist, not that the code matches the diagnosis. `MR-006` then tests the code against the written form configured in the pack, and it does not verify that the code exists in any version of the classification directory. |
+| A batch contains no operation records at all. Do the operation rules pass in silence? | No. `MR-007` reports itself in `skipped` with the reason that the material holds no operation record, so the pairing check does not apply, instead of passing in silence. When a row does record an operation, the rule requires `主要手术名称` and `主要手术编码` to be filled together, and `MR-008` checks the written form of the operation code only. |
+| A male patient's primary diagnosis is a pregnancy-related condition. Does that block the export? | `MR-014` reports it as a `warn`-level difference for a human to confirm, never as a block: the health-side documents contain no clause making a diagnosis incompatible with the recorded sex, and the published detail of that medical-insurance rule type does not cover the pregnancy, childbirth and puerperium chapter and allows clinical exceptions. Confirm with the clinician whether the sex or the diagnosis is wrong. |
+
+## Standards it follows
+
+| Document | Number | Cited by rules |
+|---|---|---|
+| 《住院病案首页数据质量管理与控制指标（2016版）》 | 国卫办医发〔2016〕24号 | MR-001 |
+| 《住院病案首页数据填写质量规范（暂行）》 | 国卫办医发〔2016〕24号 | MR-002, MR-003, MR-005, MR-006, MR-007, MR-008, MR-013, MR-015 |
+| 《卫生部关于修订住院病案首页的通知》 | 卫医政发〔2011〕84号 | MR-004, MR-009, MR-010, MR-011, MR-012 |
+| 国家医疗保障局"两库"知识点（诊断与患者性别不符） | 国家医疗保障局公告（第二十一批） | MR-014 |
 
 **Boundary:** this plugin checks the **front sheet of the inpatient medical record (病案首页)** — the
 one-page discharge summary coders and the national assessment system read — for form completeness,

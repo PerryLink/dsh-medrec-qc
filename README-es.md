@@ -1,4 +1,26 @@
-# dsh-medrec-qc
+# dsh-medrec-qc — Comprobación de forma y avisos de contradicción lógica de la portada del historial clínico de hospitalización
+
+`dsh-medrec-qc` lee una exportación de la portada del historial clínico de hospitalización (病案首页), una fila por alta, con el juego de columnas de la exportación de evaluación nacional, de la estadística sanitaria o de una exportación local del hospital, y comprueba la completitud formal, la aritmética interna y la forma de codificación de esa misma exportación: que cada columna obligatoria tenga contenido o el marcador `-`, que las horas de ingreso y de alta estén presentes, sean precisas al minuto y no estén invertidas, que la estancia declarada coincida con las dos fechas, que el nombre y el código del diagnóstico principal y los de la operación principal se rellenen juntos, que los códigos tengan la forma escrita que configura el paquete de reglas, que las tres columnas de firma reflejen la responsabilidad médica de tres niveles, que el modo de alta sea uno de los códigos definidos, que la edad y los pesos neonatales usen las formas prescritas, que el número de otros diagnósticos no supere el techo configurado, y que se señalen para revisión humana un diagnóstico incompatible con el sexo registrado o dos horas discordantes en un alta por fallecimiento.
+
+## Qué responde
+
+| Usted pregunta | Qué responde |
+|---|---|
+| Una columna obligatoria está vacía, pero escribí `-` en ella. ¿Se informa de eso? | No. `MR-001` considera un `-` aislado la marca de «no hay nada que registrar» e informa solo de las columnas realmente vacías. Comprueba que la columna obligatoria tenga contenido, no que el contenido sea correcto, y su gravedad queda limitada a `warn` porque el anexo que cita es un PDF que este entorno no puede descodificar. Ese mismo `-` sigue contando como firma ausente en `MR-009`. |
+| La hora de ingreso figura como una fecha sin hora ni minuto, y en una fila la hora de alta es anterior a la de ingreso. | `MR-002` informa de un `入院时间` o `出院时间` que solo se puede leer hasta el día, porque el tiempo registrado debe ser preciso al minuto, y también informa de un valor que no puede analizar como fecha y hora. `MR-003` compara el orden literal de los dos campos e informa de la fila en la que la hora de alta va primero. Ambas trabajan sobre los valores literales y ninguna decide cuál de las dos horas es la verdadera. |
+| La portada dice `5` días, pero las fechas son ingreso el 12 de junio y alta el 15 de junio. | `MR-004` recalcula los días como fecha de alta menos fecha de ingreso e informa de la fila cuando el `实际住院天数` declarado no coincide; el ingreso y el alta el mismo día cuentan como `0` días, y un valor que no sea un número entero de días también se informa. Solo compara esos tres valores guardados y no decide cuál de ellos está mal. |
+| `主要诊断名称` está relleno y `主要诊断编码` vacío, y otra fila trae un código de forma extraña. | `MR-005` exige que ambos se rellenen juntos y nombra el que falta; comprueba únicamente que los dos existan, no que el código corresponda al diagnóstico. `MR-006` contrasta después el código con la forma escrita configurada en el paquete y no verifica que ese código exista en ninguna versión del directorio de clasificación. |
+| Un lote no trae ningún registro de operación. ¿Las reglas de operación pasan en silencio? | No. `MR-007` se declara en `skipped` con el motivo de que el material no contiene registros de operación y la comprobación de pareja no procede, en lugar de pasar en silencio. Cuando una fila sí registra una operación, la regla exige que `主要手术名称` y `主要手术编码` se rellenen juntos, y `MR-008` comprueba solo la forma escrita del código de operación. |
+| El diagnóstico principal de un paciente varón es una afección relacionada con el embarazo. ¿Bloquea la exportación? | `MR-014` lo informa como una diferencia de nivel `warn` para que la confirme una persona, nunca como un bloqueo: los documentos sanitarios no contienen ninguna cláusula que haga incompatible un diagnóstico con el sexo registrado, y el detalle publicado de ese tipo de regla del seguro médico no cubre el capítulo de embarazo, parto y puerperio y admite excepciones de justificación clínica. Confirme con el clínico si el error está en el sexo o en el diagnóstico. |
+
+## Normas que sigue
+
+| Documento | Número | Reglas que lo citan |
+|---|---|---|
+| 《住院病案首页数据质量管理与控制指标（2016版）》 | 国卫办医发〔2016〕24号 | MR-001 |
+| 《住院病案首页数据填写质量规范（暂行）》 | 国卫办医发〔2016〕24号 | MR-002, MR-003, MR-005, MR-006, MR-007, MR-008, MR-013, MR-015 |
+| 《卫生部关于修订住院病案首页的通知》 | 卫医政发〔2011〕84号 | MR-004, MR-009, MR-010, MR-011, MR-012 |
+| 国家医疗保障局"两库"知识点（诊断与患者性别不符） | 国家医疗保障局公告（第二十一批） | MR-014 |
 
 **Boundary:** this plugin checks the **front sheet of the inpatient medical record (病案首页)** — the
 one-page discharge summary coders and the national assessment system read — for form completeness,
