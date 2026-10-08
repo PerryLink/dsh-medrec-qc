@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.2
+
+- Ship `CHANGELOG.md` and `SECURITY.md` inside the package. `files` is an
+  allowlist and neither was on it, so no release note had ever reached anyone
+  who installed this package, and npm had no changelog section to show.
 ## 0.2.1
 
 - Citation pass: every `excerpt` was checked against this repository's own
