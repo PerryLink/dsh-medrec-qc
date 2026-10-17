@@ -1,0 +1,14 @@
+[
+  {
+    "path": "docs/assets/dsh-medrec-qc-hero.png",
+    "kind": "hero",
+    "alt": "dsh-medrec-qc terminal output",
+    "caption": "Real dsh-medrec-qc checker output; 33 tests passed."
+  },
+  {
+    "path": "docs/assets/dsh-medrec-qc-demo.gif",
+    "kind": "demo",
+    "alt": "Animated dsh-medrec-qc terminal session",
+    "caption": "The same run, assembled line by line."
+  }
+]
