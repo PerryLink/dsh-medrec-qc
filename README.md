@@ -14,7 +14,7 @@ Real output from this plugin over its own `MR-009` test fixture — not a mock-u
 
 | You ask | What it answers |
 |---|---|
-| A required column is left empty, but I typed `-` in it. Is that reported? | No. `MR-001` treats a lone `-` as the marker for 'nothing to record here' and reports only the columns that are truly blank. It checks that a required column carries content, not that the content is correct, and it is capped at `warn` because the attachment it cites is a PDF this environment cannot decode. The same `-` still counts as a missing signature under `MR-009`. |
+| A required column is left empty, but I typed `-` in it. Is that reported? | No. `MR-001` treats a lone `-` as the marker for 'nothing to record here' and reports only the columns that are truly blank. It checks that a required column carries content, not that the content is correct. It is an `error` because 附件1's note now **has** been read verbatim (2026-10-13) — see the note below. The same `-` still counts as a missing signature under `MR-009`. |
 | The admission time is written as a bare date with no hour or minute, and on one row the discharge time is earlier than the admission time. | `MR-002` reports a `入院时间` or `出院时间` value that can be read only to the day, because the recorded time must be precise to the minute, and it also reports a value it cannot parse as a date and time at all. `MR-003` compares the literal order of the two fields and reports the row where the discharge time comes first. Both work on the literal values and neither decides which of the two times is the true one. |
 | The front sheet says `5` days, but the dates are 12 June in and 15 June out. | `MR-004` recounts the days as discharge date minus admission date and reports the row when the declared `实际住院天数` disagrees; admission and discharge on the same day count as `0` days, and a value that is not a whole number of days is reported too. It compares the three stored values only and does not decide which of them is wrong. |
 | `主要诊断名称` is filled in but `主要诊断编码` is blank, and another row carries a code in a strange shape. | `MR-005` requires the two to be filled together and names the one that is missing; it checks only that both exist, not that the code matches the diagnosis. `MR-006` then tests the code against the written form configured in the pack, and it does not verify that the code exists in any version of the classification directory. |
@@ -41,29 +41,42 @@ front sheet and reports literal mismatches against cited clauses.
 
 | Surface | Status |
 |---|---|
-| Harness | Peer range `>=0.1.2-rc.1 <0.2.0 \|\| >=0.2.0-0 <0.3.0` — verified to accept both `0.2.0-rc.2` and `0.2.1-alpha.1`. `engines.dsh` is deliberately not declared: it has no reader and cannot reject a host |
+| Harness | Peer range `>=0.1.2-rc.1 <0.2.0 \|\| >=0.2.0-0 <0.3.0` — verified to accept both `0.2.0-rc.2` and `0.2.1-rc.2`. `engines.dsh` is declared as `>=0.2.1-0 <0.3.0` and is enforced by the host since 0.2.1 |
 | Node | `^22.19.0 || >=24.0.0` |
 | Platforms | All (plain ESM; no native code, no network, no model call) |
-| Tool mode | Works in `native`, `ptc` and `both`; for a month of discharges use `ptc` |
+| Tool mode | Works in `native` and `ptc`; for a month of discharges use `ptc` |
 
 ## What it does
 
 Registers the `medrec_qc` tool. It reads a list of discharged cases, applies a versioned rule pack,
 and returns a report whose every finding names the clause it came from.
 
-> ### ⚠️ Why `MR-001` is only a `warn`
+> ### Why `MR-001` is an `error` again (2026-10-13)
 >
 > **Every `error` rule here rests on a document that imposes the requirement *and* whose clause text has
 > been read verbatim** — 国卫办医发〔2016〕24号 (obtained in full) and 卫医政发〔2011〕84号 (obtained in full,
-> including all three attachments). `MR-001` is the exception: its only basis is **附件1's header note**,
-> and that attachment is a PDF this environment cannot decode. The nearest obtained wording —
-> 84号文附件2 一（三）「栏目中没有可填写内容的，填写"-"」 — says **how to fill a blank**, not that a
-> required field may not be left blank, so it cannot carry an `error`. A rule whose clause cannot be read
-> does not block a workflow. See `rules/evidence/authority-class-audit.md` for the full classification.
+> including all three attachments). `MR-001` was the long-standing exception: its only basis is
+> **附件1's note**, and that attachment was recorded as a PDF this environment could not decode, so the rule
+> was **downgraded to `warn` on 2026-10-07** under the same discipline — a clause that cannot be read does
+> not block a workflow.
+>
+> **The attachment does have a text layer.** It was read verbatim on 2026-10-13: 328 pages, 205,847
+> extractable characters, **no OCR used**. The note reads
+> 「注：必填栏不能为空项，没有可填写内容时填写“-”」 — identical to the rule's `excerpt` except that the PDF
+> prints curly quotes where the rule uses straight ones, a typographic difference recorded rather than
+> papered over (the citation gate strips both quote forms, which is why the segment matches).
+> **So the rule is back to `error`, corrected on evidence.**
+>
+> ⚠️ **Source tier, stated plainly**: `www.nhc.gov.cn` returns **HTTP 412** to automated requests
+> (measured 2026-10-13; the site root is 412 too). The text was read from a **河南省病案质量控制中心**
+> compilation — the very URL this rule's `source` has always carried. That is the same tier as the
+> 高校／省级 reprints the other fourteen rules use, so it is **not a reason to treat this rule differently**.
+> See `rules/evidence/clause-verification-homepage-attachment1.md` for the full attempt log and
+> `rules/evidence/authority-class-audit.md` for the classification.
 
 | Rule | Check | Severity |
 |---|---|---|
-| `MR-001` | no required column is blank (a lone `-` is the approved marker) | warn |
+| `MR-001` | no required column is blank (a lone `-` is the approved marker) | error |
 | `MR-002` | admission and discharge times are present and precise to the minute | error |
 | `MR-003` | the discharge time is not before the admission time | error |
 | `MR-004` | the recorded length of stay matches the two dates | error |

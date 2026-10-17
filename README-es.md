@@ -14,7 +14,7 @@ Salida real de este plugin sobre su propio fixture de prueba `MR-009` — no es 
 
 | Usted pregunta | Qué responde |
 |---|---|
-| Una columna obligatoria está vacía, pero escribí `-` en ella. ¿Se informa de eso? | No. `MR-001` considera un `-` aislado la marca de «no hay nada que registrar» e informa solo de las columnas realmente vacías. Comprueba que la columna obligatoria tenga contenido, no que el contenido sea correcto, y su gravedad queda limitada a `warn` porque el anexo que cita es un PDF que este entorno no puede descodificar. Ese mismo `-` sigue contando como firma ausente en `MR-009`. |
+| Una columna obligatoria está vacía, pero escribí `-` en ella. ¿Se informa de eso? | No. `MR-001` considera un `-` aislado la marca de «no hay nada que registrar» e informa solo de las columnas realmente vacías. Comprueba que la columna obligatoria tenga contenido, no que el contenido sea correcto. Es un `error`: la nota al pie del anexo 1 del documento 24号文 se leyó literalmente el **2026-10-13** (el anexo **tiene capa de texto**: 328 páginas, 205 847 caracteres extraíbles, **sin OCR**), y dice 「注：必填栏不能为空项，没有可填写内容时填写“-”」. ⚠️ `www.nhc.gov.cn` devuelve **HTTP 412** a las peticiones automáticas, así que el texto se leyó de una **recopilación del Centro de Control de Calidad de Historias Clínicas de Henan** — la misma URL que el `source` de esta regla siempre ha llevado; véase `rules/evidence/clause-verification-homepage-attachment1.md`. Ese mismo `-` sigue contando como firma ausente en `MR-009`. |
 | La hora de ingreso figura como una fecha sin hora ni minuto, y en una fila la hora de alta es anterior a la de ingreso. | `MR-002` informa de un `入院时间` o `出院时间` que solo se puede leer hasta el día, porque el tiempo registrado debe ser preciso al minuto, y también informa de un valor que no puede analizar como fecha y hora. `MR-003` compara el orden literal de los dos campos e informa de la fila en la que la hora de alta va primero. Ambas trabajan sobre los valores literales y ninguna decide cuál de las dos horas es la verdadera. |
 | La portada dice `5` días, pero las fechas son ingreso el 12 de junio y alta el 15 de junio. | `MR-004` recalcula los días como fecha de alta menos fecha de ingreso e informa de la fila cuando el `实际住院天数` declarado no coincide; el ingreso y el alta el mismo día cuentan como `0` días, y un valor que no sea un número entero de días también se informa. Solo compara esos tres valores guardados y no decide cuál de ellos está mal. |
 | `主要诊断名称` está relleno y `主要诊断编码` vacío, y otra fila trae un código de forma extraña. | `MR-005` exige que ambos se rellenen juntos y nombra el que falta; comprueba únicamente que los dos existan, no que el código corresponda al diagnóstico. `MR-006` contrasta después el código con la forma escrita configurada en el paquete y no verifica que ese código exista en ninguna versión del directorio de clasificación. |
@@ -41,10 +41,10 @@ front sheet and reports literal mismatches against cited clauses.
 
 | Superficie | Estado |
 |---|---|
-| Harness | Rango de peers `>=0.1.2-rc.1 <0.2.0 \|\| >=0.2.0-0 <0.3.0` — verificado para aceptar tanto `0.2.0-rc.2` como `0.2.1-alpha.1`. **No se declara `engines.dsh`**: no tiene lector y no puede rechazar ningún host |
+| Harness | Rango de peers `>=0.1.2-rc.1 <0.2.0 \|\| >=0.2.0-0 <0.3.0` — verificado para aceptar tanto `0.2.0-rc.2` como `0.2.1-rc.2`. **`engines.dsh` se declara como `>=0.2.1-0 <0.3.0`** y el host lo aplica desde 0.2.1 |
 | Node | `^22.19.0 || >=24.0.0` |
 | Plataformas | Todas (ESM puro; sin código nativo, sin red, sin llamada al modelo) |
-| Modo de herramienta | Funciona en `native`, `ptc` y `both`; para un directorio completo use `ptc` |
+| Modo de herramienta | Funciona en `native` y `ptc`; para un directorio completo use `ptc` |
 
 ## What it does
 

@@ -1,5 +1,39 @@
 # Changelog
 
+## 0.2.6 - 2026-10-17
+
+- Compatibility: declare `engines.dsh` `>=0.2.1-0 <0.3.0`; move `@deepseek-ai/dsh-*` devDependencies to `0.2.1-rc.2`; add `@deepseek-ai/dsh-working-directory`.
+- Docs: the compatibility table no longer claims `engines.dsh` is undeclared; drop the retired `both` tool mode.
+
+
+## 0.2.5
+
+- **`MR-001` is an `error` again, corrected on evidence.** Its only basis is the note at the foot of
+  **附件1「住院病案首页必填项目列表」** of 国卫办医发〔2016〕24号. On 2026-10-07 that rule was
+  **downgraded to `warn`** because the attachment was recorded as a PDF this environment could not
+  decode — and under this family's rule a clause that cannot be read does not block a workflow, so the
+  downgrade was right at the time.
+
+  **The attachment does have a text layer.** It was read on 2026-10-13: 328 pages, 205,847 extractable
+  characters, **no OCR**. The note is verbatim
+  「注：必填栏不能为空项，没有可填写内容时填写“-”」 — the same wording the rule already carried. The only
+  difference is that the PDF prints curly quotes where the rule uses straight ones, a typographic
+  difference recorded in the evidence file rather than papered over.
+
+  ⚠️ **The source tier is stated plainly in the evidence.** `www.nhc.gov.cn` returns **HTTP 412** to
+  automated requests (measured, and the site root is 412 too), so the text came from a
+  **河南省病案质量控制中心** compilation — the very URL this rule's `source` has always carried, and the
+  same tier as the 高校／省级 reprints the other fourteen rules rely on. It is therefore not a reason to
+  treat `MR-001` differently, but it is not the publisher's own text either, and the reader is told so.
+
+  New evidence file: `rules/evidence/clause-verification-homepage-attachment1.md` (source, attempt log
+  with status codes, the verbatim text, and the quote-character difference).
+  The `MR-001` rows and the "why it was `warn`" section were updated in all five READMEs together, which
+  `check:readmes` requires.
+
+  No rule was added or removed: still 15 rules across `MR-001`..`MR-015`. The only severity that moved
+  is `MR-001`, `warn` → `error`.
+
 ## 0.2.4
 
 - Add a demo card to the README: one terminal shot of this plugin's real output
@@ -57,3 +91,4 @@
 - Five-language READMEs hold the same section count and the same configuration keys.
 - Rule pack: 15 rules across MR-001..MR-015.
 - Licensed Apache-2.0.
+
