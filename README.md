@@ -4,6 +4,13 @@
 
 `dsh-medrec-qc` reads an export of the inpatient medical record front sheet (病案首页), one row per discharge, in the column set of the national assessment export, the health statistics export or a hospital-local export, and checks that export's own form completeness, internal arithmetic and coding form: that each required column carries content or the `-` marker, that the admission and discharge times are present, precise to the minute and not in the wrong order, that the declared length of stay agrees with the two dates, that the primary diagnosis name and code and the primary operation name and code are filled together, that the codes have the written form the pack configures, that the three signature columns reflect three-level physician responsibility, that the discharge mode is one of the defined codes, that the age and the neonatal weights use the prescribed forms, that the count of other diagnoses stays within the configured ceiling, and that a diagnosis incompatible with the recorded sex or two disagreeing times in a death discharge are surfaced for human review.
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-medrec-qc
+dsh --profile <name> --dump-config | grep 'dsh-medrec-qc'
+```
+
 ## What it looks like
 
 ![Terminal demo of dsh-medrec-qc: real output over its MR-009 fixture](https://raw.githubusercontent.com/PerryLink/dsh-medrec-qc/main/docs/assets/dsh-medrec-qc-hero.png)
@@ -98,13 +105,6 @@ Column names are resolved through a shared dictionary, so the national-assessmen
 statistics export and a hospital-local export all feed the same rules. Columns the reader cannot map
 are reported in `warnings` and `unknownColumns` rather than ignored — an unmapped column is exactly how
 a check goes missing without anyone noticing.
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-medrec-qc
-dsh --profile <name> --dump-config | grep 'dsh-medrec-qc'
-```
 
 ## Configuration
 

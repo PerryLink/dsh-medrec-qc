@@ -4,6 +4,13 @@
 
 `dsh-medrec-qc` lê uma exportação da folha de rosto do registo clínico de internamento (病案首页), uma linha por alta, com o conjunto de colunas da exportação de avaliação nacional, da estatística sanitária ou de uma exportação local do hospital, e verifica a completude formal, a aritmética interna e a forma de codificação dessa mesma exportação: que cada coluna obrigatória tenha conteúdo ou o marcador `-`, que as horas de admissão e de alta estejam preenchidas, sejam precisas ao minuto e não estejam invertidas, que o tempo de internamento declarado coincida com as duas datas, que o nome e o código do diagnóstico principal e os da operação principal sejam preenchidos em conjunto, que os códigos tenham a forma escrita que o pacote de regras configura, que as três colunas de assinatura reflitam a responsabilidade médica de três níveis, que o modo de alta seja um dos códigos definidos, que a idade e os pesos neonatais usem as formas prescritas, que o número de outros diagnósticos não exceda o limite configurado, e que sejam assinalados para revisão humana um diagnóstico incompatível com o sexo registado ou duas horas discordantes numa alta por óbito.
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-medrec-qc
+dsh --profile <name> --dump-config | grep 'dsh-medrec-qc'
+```
+
 ## Como é a saída
 
 ![Terminal demo of dsh-medrec-qc: real output over its MR-009 fixture](https://raw.githubusercontent.com/PerryLink/dsh-medrec-qc/main/docs/assets/dsh-medrec-qc-hero.png)
@@ -51,13 +58,6 @@ front sheet and reports literal mismatches against cited clauses.
 ## What it does
 
 A tabela de regras, os campos e o comportamento detalhado estão em [README.md](README.md#what-it-does) (versão principal em inglês). O plugin apenas lista divergências literais frente às cláusulas citadas e indica em `skipped` cada verificação que não pôde ser executada.
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-medrec-qc
-dsh --profile <name> --dump-config | grep 'dsh-medrec-qc'
-```
 
 ## Configuration
 

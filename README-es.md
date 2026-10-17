@@ -4,6 +4,13 @@
 
 `dsh-medrec-qc` lee una exportación de la portada del historial clínico de hospitalización (病案首页), una fila por alta, con el juego de columnas de la exportación de evaluación nacional, de la estadística sanitaria o de una exportación local del hospital, y comprueba la completitud formal, la aritmética interna y la forma de codificación de esa misma exportación: que cada columna obligatoria tenga contenido o el marcador `-`, que las horas de ingreso y de alta estén presentes, sean precisas al minuto y no estén invertidas, que la estancia declarada coincida con las dos fechas, que el nombre y el código del diagnóstico principal y los de la operación principal se rellenen juntos, que los códigos tengan la forma escrita que configura el paquete de reglas, que las tres columnas de firma reflejen la responsabilidad médica de tres niveles, que el modo de alta sea uno de los códigos definidos, que la edad y los pesos neonatales usen las formas prescritas, que el número de otros diagnósticos no supere el techo configurado, y que se señalen para revisión humana un diagnóstico incompatible con el sexo registrado o dos horas discordantes en un alta por fallecimiento.
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-medrec-qc
+dsh --profile <name> --dump-config | grep 'dsh-medrec-qc'
+```
+
 ## Cómo se ve la salida
 
 ![Terminal demo of dsh-medrec-qc: real output over its MR-009 fixture](https://raw.githubusercontent.com/PerryLink/dsh-medrec-qc/main/docs/assets/dsh-medrec-qc-hero.png)
@@ -51,13 +58,6 @@ front sheet and reports literal mismatches against cited clauses.
 ## What it does
 
 La tabla de reglas, los campos y el comportamiento detallado están en [README.md](README.md#what-it-does) (versión principal en inglés). El plugin sólo enumera divergencias literales frente a las cláusulas citadas e indica en `skipped` cada comprobación que no pudo ejecutarse.
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-medrec-qc
-dsh --profile <name> --dump-config | grep 'dsh-medrec-qc'
-```
 
 ## Configuration
 

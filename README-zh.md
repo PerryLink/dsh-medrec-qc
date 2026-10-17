@@ -4,6 +4,13 @@
 
 `dsh-medrec-qc` 读取一份住院病案首页导出表，每行一例出院病例，列名可以是国家绩效考核导出、卫生统计导出或医院本地导出的写法，核对这份材料自身的形式齐备、内部算术与编码形式：必填栏目是否有内容或按规范填写 `-`、入院时间与出院时间是否填写且精确到分钟且前后不倒置、填写的实际住院天数是否与两个日期一致、主要诊断的名称与编码以及主要手术的名称与编码是否同时填写、编码是否符合规则库配置的书写形式、三级医师签名栏是否齐全、离院方式是否为规定代码、年龄与新生儿体重是否使用规定形式、其他诊断条数是否在配置上限内，以及诊断与性别不相容、死亡病例两条时间不一致等需人工核实的情形是否被列出。
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-medrec-qc
+dsh --profile <name> --dump-config | grep 'dsh-medrec-qc'
+```
+
 ## 实际输出长什么样
 
 ![Terminal demo of dsh-medrec-qc: real output over its MR-009 fixture](https://raw.githubusercontent.com/PerryLink/dsh-medrec-qc/main/docs/assets/dsh-medrec-qc-hero.png)
@@ -51,13 +58,6 @@ front sheet and reports literal mismatches against cited clauses.
 ## What it does
 
 规则表、字段说明与行为细节见 [README.md](README.md#what-it-does)（英文主版本）。本插件只列出材料与所引条款之间的字面差异，并对无法执行的检查在 `skipped` 中逐项说明。
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-medrec-qc
-dsh --profile <name> --dump-config | grep 'dsh-medrec-qc'
-```
 
 ## Configuration
 
