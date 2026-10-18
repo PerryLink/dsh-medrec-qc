@@ -41,12 +41,7 @@ dsh --profile <name> --dump-config | grep 'dsh-medrec-qc'
 | 《卫生部关于修订住院病案首页的通知》 | 卫医政发〔2011〕84号 | MR-004, MR-009, MR-010, MR-011, MR-012 |
 | 国家医疗保障局"两库"知识点（诊断与患者性别不符） | 国家医疗保障局公告（第二十一批） | MR-014 |
 
-**Boundary:** this plugin checks the **front sheet of the inpatient medical record (病案首页)** — the
-one-page discharge summary coders and the national assessment system read — for form completeness,
-internal contradictions and coding form. It is not `dsh-nurse-record-check` (which checks nursing
-documentation timeliness), not `dsh-icd-rule-check` (which checks ICD coding rules and dagger/asterisk
-pairing), and it does not judge whether a diagnosis was clinically correct. It reads an export of the
-front sheet and reports literal mismatches against cited clauses.
+**边界（中文译文，以英文原文为准）：** 本插件核对**住院病案首页**——编码员与国家考核体系所阅读的那一页出院摘要——的表格完整性、内部矛盾与编码形态。它不是 `dsh-nurse-record-check`（后者核对护理文书的及时性），不是 `dsh-icd-rule-check`（后者核对 ICD 编码规则与剑号/星号配对），也不判定诊断在临床上是否正确。它读取病案首页的导出数据，并报出与所引条款之间的字面不符。
 
 ## Compatibility
 
