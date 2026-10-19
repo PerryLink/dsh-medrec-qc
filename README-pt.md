@@ -8,6 +8,7 @@ dsh plugin --profile <name> add dsh-medrec-qc
 
 
 [![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
+[![dshfind](https://dshfind.com/api/badge/PerryLink/dsh-medrec-qc?metric=downloads)](https://dshfind.com/en/plugins/PerryLink/dsh-medrec-qc?ref=badge)
 
 `dsh-medrec-qc` lê uma exportação da folha de rosto do registo clínico de internamento (病案首页), uma linha por alta, com o conjunto de colunas da exportação de avaliação nacional, da estatística sanitária ou de uma exportação local do hospital, e verifica a completude formal, a aritmética interna e a forma de codificação dessa mesma exportação: que cada coluna obrigatória tenha conteúdo ou o marcador `-`, que as horas de admissão e de alta estejam preenchidas, sejam precisas ao minuto e não estejam invertidas, que o tempo de internamento declarado coincida com as duas datas, que o nome e o código do diagnóstico principal e os da operação principal sejam preenchidos em conjunto, que os códigos tenham a forma escrita que o pacote de regras configura, que as três colunas de assinatura reflitam a responsabilidade médica de três níveis, que o modo de alta seja um dos códigos definidos, que a idade e os pesos neonatais usem as formas prescritas, que o número de outros diagnósticos não exceda o limite configurado, e que sejam assinalados para revisão humana um diagnóstico incompatível com o sexo registado ou duas horas discordantes numa alta por óbito.
 

@@ -8,6 +8,7 @@ dsh plugin --profile <name> add dsh-medrec-qc
 
 
 [![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
+[![dshfind](https://dshfind.com/api/badge/PerryLink/dsh-medrec-qc?metric=downloads)](https://dshfind.com/en/plugins/PerryLink/dsh-medrec-qc?ref=badge)
 
 `dsh-medrec-qc` reads an export of the inpatient medical record front sheet (病案首页), one row per discharge, in the column set of the national assessment export, the health statistics export or a hospital-local export, and checks that export's own form completeness, internal arithmetic and coding form: that each required column carries content or the `-` marker, that the admission and discharge times are present, precise to the minute and not in the wrong order, that the declared length of stay agrees with the two dates, that the primary diagnosis name and code and the primary operation name and code are filled together, that the codes have the written form the pack configures, that the three signature columns reflect three-level physician responsibility, that the discharge mode is one of the defined codes, that the age and the neonatal weights use the prescribed forms, that the count of other diagnoses stays within the configured ceiling, and that a diagnosis incompatible with the recorded sex or two disagreeing times in a death discharge are surfaced for human review.
 
