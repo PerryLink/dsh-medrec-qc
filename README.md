@@ -20,13 +20,17 @@ dsh --profile <name> --dump-config | grep 'dsh-medrec-qc'
 
 ## What it looks like
 
-![Terminal demo of dsh-medrec-qc: real output over its MR-009 fixture](https://raw.githubusercontent.com/PerryLink/dsh-medrec-qc/main/docs/assets/dsh-medrec-qc-hero.png)
+![Workflow diagram for dsh-medrec-qc: call → plugin → result.](docs/assets/dsh-medrec-qc-flow.svg)
 
-![Animated terminal demo of dsh-medrec-qc](https://raw.githubusercontent.com/PerryLink/dsh-medrec-qc/main/docs/assets/dsh-medrec-qc-demo.gif)
+*Workflow overview: call → plugin → result. The examples below use the real command surface.*
 
-Real output from this plugin over its own `MR-009` test fixture — not a mock-up. The rule pack ships no invented quotations, so a finding names both the clause it applied and the fact that the clause text was not obtained.
+
 
 ## What it answers
+
+### Examples
+
+The table below is the example set: the first row is the detailed walkthrough, the remaining rows are short cases.
 
 | You ask | What it answers |
 |---|---|

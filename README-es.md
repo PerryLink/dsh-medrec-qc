@@ -20,13 +20,18 @@ dsh --profile <name> --dump-config | grep 'dsh-medrec-qc'
 
 ## Cómo se ve la salida
 
-![Terminal demo of dsh-medrec-qc: real output over its MR-009 fixture](https://raw.githubusercontent.com/PerryLink/dsh-medrec-qc/main/docs/assets/dsh-medrec-qc-hero.png)
+![Diagrama de flujo de dsh-medrec-qc: llamada → plugin → resultado.](docs/assets/dsh-medrec-qc-flow.svg)
 
-![Animated terminal demo of dsh-medrec-qc](https://raw.githubusercontent.com/PerryLink/dsh-medrec-qc/main/docs/assets/dsh-medrec-qc-demo.gif)
+*Resumen del flujo: llamada → plugin → resultado. Los ejemplos siguientes usan la superficie de comandos real.*
+
 
 Salida real de este plugin sobre su propio fixture de prueba `MR-009` — no es un montaje. El paquete de reglas no inventa citas, así que cada hallazgo nombra la cláusula aplicada y advierte que su texto no se obtuvo.
 
 ## Qué responde
+
+### Ejemplos
+
+La tabla siguiente es el conjunto de ejemplos: la primera fila es el caso detallado y las demás son casos breves.
 
 | Usted pregunta | Qué responde |
 |---|---|
