@@ -34,6 +34,39 @@ Salida real de este plugin sobre su propio fixture de prueba `MR-009` — no es 
 
 La tabla siguiente es el conjunto de ejemplos: la primera fila es el caso detallado y las demás son casos breves.
 
+#### Salida detallada
+
+**Herramienta** `medrec_qc`
+
+**Entrada**
+
+~~~yaml
+target: 2026 年 3 月出院病案首页导出
+cases:
+  - row: 1
+    病案号: ""
+    入院时间: "2026-03-01 08:30"
+    出院时间: "2026-03-06 10:00"
+~~~
+ 
+**Salida**
+
+~~~json
+{
+  "id": "dsh-medrec-qc.MR-001.a58905f0",
+  "ruleId": "MR-001",
+  "severity": "error",
+  "locator": {
+    "row": 1,
+    "column": "病案号"
+  },
+  "found": "「病案号」为空",
+  "expected": "附件1 必填栏不能为空项，没有可填写内容时填写\"-\""
+}
+~~~
+
+*Observado en `dsh-medrec-qc/tests/fixtures/MR-001/MR-001-unsafe.yaml`*
+
 | Usted pregunta | Qué responde |
 |---|---|
 | Una columna obligatoria está vacía, pero escribí `-` en ella. ¿Se informa de eso? | No. `MR-001` considera un `-` aislado la marca de «no hay nada que registrar» e informa solo de las columnas realmente vacías. Comprueba que la columna obligatoria tenga contenido, no que el contenido sea correcto. Es un `error`: la nota al pie del anexo 1 del documento 24号文 se leyó literalmente el **2026-10-13** (el anexo **tiene capa de texto**: 328 páginas, 205 847 caracteres extraíbles, **sin OCR**), y dice 「注：必填栏不能为空项，没有可填写内容时填写“-”」. ⚠️ `www.nhc.gov.cn` devuelve **HTTP 412** a las peticiones automáticas, así que el texto se leyó de una **recopilación del Centro de Control de Calidad de Historias Clínicas de Henan** — la misma URL que el `source` de esta regla siempre ha llevado; véase `rules/evidence/clause-verification-homepage-attachment1.md`. Ese mismo `-` sigue contando como firma ausente en `MR-009`. |

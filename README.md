@@ -33,6 +33,39 @@ dsh --profile <name> --dump-config | grep 'dsh-medrec-qc'
 
 The table below is the example set: the first row is the detailed walkthrough, the remaining rows are short cases.
 
+#### Detailed output
+
+**Tool** `medrec_qc`
+
+**Input**
+
+~~~yaml
+target: 2026 年 3 月出院病案首页导出
+cases:
+  - row: 1
+    病案号: ""
+    入院时间: "2026-03-01 08:30"
+    出院时间: "2026-03-06 10:00"
+~~~
+ 
+**Output**
+
+~~~json
+{
+  "id": "dsh-medrec-qc.MR-001.a58905f0",
+  "ruleId": "MR-001",
+  "severity": "error",
+  "locator": {
+    "row": 1,
+    "column": "病案号"
+  },
+  "found": "「病案号」为空",
+  "expected": "附件1 必填栏不能为空项，没有可填写内容时填写\"-\""
+}
+~~~
+
+*Observed from `dsh-medrec-qc/tests/fixtures/MR-001/MR-001-unsafe.yaml`*
+
 | You ask | What it answers |
 |---|---|
 | A required column is left empty, but I typed `-` in it. Is that reported? | No. `MR-001` treats a lone `-` as the marker for 'nothing to record here' and reports only the columns that are truly blank. It checks that a required column carries content, not that the content is correct. It is an `error` because 附件1's note now **has** been read verbatim (2026-10-13) — see the note below. The same `-` still counts as a missing signature under `MR-009`. |
