@@ -1,6 +1,6 @@
 # dsh-medrec-qc — 病案首页形式质控与逻辑矛盾提示
 
-## 快速试跑（1 分钟）
+### 快速试跑（1 分钟）
 
 ```bash
 node samples/quickstart/run.mjs --check
