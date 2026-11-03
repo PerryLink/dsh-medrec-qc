@@ -1,0 +1,10 @@
+{
+  "tool": "medrec_qc",
+  "issueCount": 1,
+  "summary": {
+    "error": 1,
+    "warn": 0,
+    "info": 0
+  },
+  "skippedCount": 14
+}
