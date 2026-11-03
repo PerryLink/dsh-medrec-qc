@@ -1,0 +1,3 @@
+$ node samples/quickstart/run.mjs
+medrec_qc: 1 issue(s) — error 1, warn 0, info 0
+skipped: 14
