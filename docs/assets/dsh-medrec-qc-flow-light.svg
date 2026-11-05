@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="440" viewBox="0 0 1200 440" role="img" aria-label="dsh-medrec-qc pipeline">
+<title>dsh-medrec-qc pipeline</title>
+<rect width="1200" height="440" rx="18" fill="#ffffff"/>
+<text x="60" y="58" fill="#1f2328" font-family="ui-sans-serif,system-ui,sans-serif" font-size="30" font-weight="700">dsh-medrec-qc</text>
+<text x="60" y="92" fill="#57606a" font-family="ui-monospace,monospace" font-size="16">medrec_qc · file | material → rule pack → report</text>
+<line x1="60" y1="116" x2="1140" y2="116" stroke="#d0d7de"/>
+<rect x="60" y="146" width="180" height="96" rx="14" fill="#f6f8fa" stroke="#d0d7de" stroke-width="2"/>
+<text x="150" y="186" fill="#1f2328" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700">file | material</text>
+<text x="150" y="214" fill="#57606a" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12">JSON / YAML</text>
+<path d="M246 194h33" stroke="#57606a" stroke-width="3"/>
+<path d="M277 187l10 7-10 7" fill="none" stroke="#57606a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="285" y="146" width="180" height="96" rx="14" fill="#f6f8fa" stroke="#d0d7de" stroke-width="2"/>
+<text x="375" y="186" fill="#1f2328" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700">parseMaterial</text>
+<text x="375" y="214" fill="#57606a" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12">dictionary → rows</text>
+<path d="M471 194h33" stroke="#57606a" stroke-width="3"/>
+<path d="M502 187l10 7-10 7" fill="none" stroke="#57606a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="510" y="146" width="180" height="96" rx="14" fill="#f6f8fa" stroke="#4B67B4" stroke-width="2"/>
+<text x="600" y="186" fill="#1f2328" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700">medrec_qc</text>
+<text x="600" y="214" fill="#57606a" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12">MR-001 … MR-015</text>
+<path d="M696 194h33" stroke="#57606a" stroke-width="3"/>
+<path d="M727 187l10 7-10 7" fill="none" stroke="#57606a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="735" y="146" width="180" height="96" rx="14" fill="#f6f8fa" stroke="#d0d7de" stroke-width="2"/>
+<text x="825" y="186" fill="#1f2328" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700">buildView</text>
+<text x="825" y="214" fill="#57606a" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12">markdown + reportJson</text>
+<path d="M921 194h33" stroke="#57606a" stroke-width="3"/>
+<path d="M952 187l10 7-10 7" fill="none" stroke="#57606a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="960" y="146" width="180" height="96" rx="14" fill="#f6f8fa" stroke="#16a34a" stroke-width="2"/>
+<text x="1050" y="186" fill="#1f2328" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700">report</text>
+<text x="1050" y="214" fill="#57606a" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12">summary · skipped[]</text>
+<path d="M600 242v58" stroke="#4B67B4" stroke-width="2" stroke-dasharray="5 5"/>
+<path d="M594 292l6 8 6-8" fill="none" stroke="#4B67B4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="330" y="300" width="540" height="48" rx="12" fill="#f6f8fa" stroke="#4B67B4" stroke-width="2"/>
+<text x="600" y="330" fill="#1f2328" text-anchor="middle" font-family="ui-monospace,monospace" font-size="14">rules/medrec-qc.yaml · 15 rules · excerpt verbatim</text>
+<text x="60" y="390" fill="#57606a" font-family="ui-monospace,monospace" font-size="13">config · rulesFile · disabledRules · onlyRules · skipNotes · timeoutMs</text>
+<text x="60" y="414" fill="#57606a" font-family="ui-monospace,monospace" font-size="13">every finding · document · number · clause · excerpt · source</text>
+</svg>
