@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-medrec-qc-flow-dark.svg">
-  <img src="docs/assets/dsh-medrec-qc-flow-light.svg" width="100%" alt="Flujo de dsh-medrec-qc: file | material → parseMaterial → medrec_qc (rules/medrec-qc.yaml, 15 reglas) → buildView → report">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-medrec-qc-hero-en-dark.webp">
+  <img src="docs/assets/dsh-medrec-qc-hero-en-light.webp" width="100%" alt="Banner de dsh-medrec-qc: la columna izquierda lleva el nombre del plugin y dos líneas de valor; a la derecha, ocho campos de una exportación de la hoja frontal con la celda vacía del número de historia clínica marcada en rojo, la tarjeta del hallazgo MR-001 (fila 1, found / basis / source) y la lectura del informe: 1 incidencia, 14 omitidas, error 1 · warn 0 · info 0">
 </picture>
 
 # dsh-medrec-qc
@@ -41,6 +41,11 @@ dsh plugin --profile <name> add dsh-medrec-qc
 Los casos que requieren juicio humano —un diagnóstico incompatible con el sexo registrado, dos horas que no concuerdan en un alta por fallecimiento— se señalan para revisión, nunca se deciden.
 
 Lee un archivo y devuelve una lista: sin red, sin llamadas al modelo, sin escrituras; el mismo material puede revisarse tantas veces como quieras, y cambiar el paquete de reglas cambia todo el conjunto de comprobaciones.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-medrec-qc-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-medrec-qc-flow-v5-light.svg" width="100%" alt="Estructura de dsh-medrec-qc: parseMaterial() normaliza la exportación en 21 claves canónicas; runCheck() ejecuta las 15 reglas en tres niveles de gravedad (10 error / 4 warn / 1 info); en la muestra quickstart MR-001 se dispara, 12 reglas se ejecutan sin diferencias, MR-012 no tiene columna y MR-015 no tiene caso de fallecimiento; toda regla sin diferencia se escribe en skipped[] con su motivo; buildView() proyecta issues[] y skipped[] en markdown / reportJson, y la conclusión queda en manos de quien revisa">
+</picture>
 
 ## Instalación en tres pasos
 
@@ -405,7 +410,7 @@ Estructura:
 
 Topics: `dsh`, `dsh-plugin`, `deepseek-harness`, `deepseek`, `cordis`, `medrec`
 
-Las imágenes del README se generan programáticamente con [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python + Pillow, diagrama de flujo SVG en claro/oscuro) y es seguro volver a ejecutarlo; el antiguo `dsh-medrec-qc-flow.svg` de una sola versión y las capturas de terminal se conservan tal cual para que los enlaces externos no se rompan.
+Las imágenes del README se generan programáticamente con [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) —el banner hero con Pillow y el diagrama de estructura como SVG escrito a mano— y es seguro volver a ejecutarlo; el antiguo `dsh-medrec-qc-flow.svg` de una sola versión y las capturas de terminal se conservan en `docs/assets/` para los enlaces existentes, mientras que los README solo referencian el nuevo hero (cuatro archivos, zh/en × claro/oscuro) y el diagrama flow-v5 (claro y oscuro).
 
 ## Familia y agradecimientos
 

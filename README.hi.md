@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-medrec-qc-flow-dark.svg">
-  <img src="docs/assets/dsh-medrec-qc-flow-light.svg" width="100%" alt="dsh-medrec-qc पाइपलाइन: file | material → parseMaterial → medrec_qc (rules/medrec-qc.yaml, 15 नियम) → buildView → report">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-medrec-qc-hero-en-dark.webp">
+  <img src="docs/assets/dsh-medrec-qc-hero-en-light.webp" width="100%" alt="dsh-medrec-qc बैनर: बाएँ स्तंभ में प्लगइन का नाम और दो मूल्य-पंक्तियाँ; दाईं ओर इनपेशेंट फ़्रंट-शीट एक्सपोर्ट के आठ फ़ील्ड, खाली मेडिकल रिकॉर्ड नंबर सेल लाल घेरे में, नीचे MR-001 निष्कर्ष कार्ड (पंक्ति 1, found / basis / source) और रिपोर्ट रीडिंग: 1 issue, 14 skipped, error 1 · warn 0 · info 0">
 </picture>
 
 # dsh-medrec-qc
@@ -41,6 +41,11 @@ dsh plugin --profile <name> add dsh-medrec-qc
 जिन मामलों में मनुष्य का निर्णय चाहिए — दर्ज लिंग से असंगत निदान, मृत्यु-आधारित डिस्चार्ज में दो अलग समय — उन्हें केवल समीक्षा के लिए सामने रखा जाता है, तय कभी नहीं किया जाता।
 
 यह फ़ाइल पढ़ता है और सूची देता है: कोई नेटवर्क नहीं, कोई मॉडल कॉल नहीं, कोई फ़ाइल लेखन नहीं; वही सामग्री जितनी बार चाहें जाँची जा सकती है, और नियम पैक बदलने से पूरा नियम-समूह बदल जाता है।
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-medrec-qc-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-medrec-qc-flow-v5-light.svg" width="100%" alt="dsh-medrec-qc संरचना: parseMaterial() एक्सपोर्ट को 21 मानक कुंजियों में सामान्य करता है; runCheck() सभी 15 नियम तीन गंभीरता-स्तरों (10 error / 4 warn / 1 info) में चलाता है; quickstart नमूने में MR-001 पकड़ में आता है, 12 नियम बिना अंतर के चलते हैं, MR-012 में कॉलम नहीं है और MR-015 में मृत्यु-मामला नहीं है; जिस नियम में अंतर नहीं मिला वह कारण सहित skipped[] में जाता है; buildView() issues[] और skipped[] को markdown / reportJson में प्रोजेक्ट करता है, और निर्णय समीक्षक के पास रहता है">
+</picture>
 
 ## तीन चरणों में शुरुआत
 
@@ -405,7 +410,7 @@ node samples/quickstart/run.mjs   # बिल्ड के बाद
 
 Topics: `dsh`, `dsh-plugin`, `deepseek-harness`, `deepseek`, `cordis`, `medrec`
 
-README की तस्वीरें [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) से क्रमादेशित रूप से बनती हैं (Python + Pillow, हल्का/गहरा SVG प्रवाह-चित्र), दोबारा चलाना सुरक्षित है; पुराना एक-संस्करण `dsh-medrec-qc-flow.svg` और टर्मिनल कैप्चर जैसे हैं वैसे रखे गए हैं ताकि बाहरी लिंक न टूटें।
+README की तस्वीरें [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) से क्रमादेशित रूप से बनती हैं — hero बैनर Pillow से और संरचना-चित्र हाथ से लिखे SVG से — दोबारा चलाना सुरक्षित है; पुराना एक-संस्करण `dsh-medrec-qc-flow.svg` और टर्मिनल कैप्चर मौजूदा लिंक के लिए `docs/assets/` में रखे गए हैं, जबकि README केवल नए hero (चार फ़ाइलें, zh/en × हल्का/गहरा) और flow-v5 चित्र (हल्का और गहरा) का संदर्भ देते हैं।
 
 ## परिवार और आभार
 

@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-medrec-qc-flow-dark.svg">
-  <img src="docs/assets/dsh-medrec-qc-flow-light.svg" width="100%" alt="dsh-medrec-qc pipeline: file | material → parseMaterial → medrec_qc (rules/medrec-qc.yaml, 15 rules) → buildView → report">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-medrec-qc-hero-en-dark.webp">
+  <img src="docs/assets/dsh-medrec-qc-hero-en-light.webp" width="100%" alt="dsh-medrec-qc banner: the left column carries the plugin name and two value lines; the right shows eight fields of an inpatient front-sheet export with the blank medical-record-number cell ringed in red, the MR-001 finding card underneath (row 1, found / basis / source), and the report readout: 1 issue, 14 skipped, error 1 · warn 0 · info 0">
 </picture>
 
 # dsh-medrec-qc
@@ -41,6 +41,11 @@ dsh plugin --profile <name> add dsh-medrec-qc
 Cases that need human judgement — a diagnosis incompatible with the recorded sex, two disagreeing times in a death discharge — are surfaced for review, never decided.
 
 It reads a file and returns a list: no network, no model call, no writes, so the same material can be checked as often as you like; swap the rule pack and you swap the whole rule set.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-medrec-qc-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-medrec-qc-flow-v5-light.svg" width="100%" alt="dsh-medrec-qc structure: parseMaterial() normalises the export into 21 canonical keys; runCheck() runs all 15 rules in three severity decks (10 error / 4 warn / 1 info); in the quickstart sample MR-001 fires, 12 rules run clean, MR-012 has no column and MR-015 has no death case; every rule that did not produce a difference is written to skipped[] with a reason; buildView() projects issues[] and skipped[] into markdown / reportJson, and the verdict stays with the reviewer">
+</picture>
 
 ## Three-step setup
 
@@ -405,7 +410,7 @@ Layout:
 
 Topics: `dsh`, `dsh-plugin`, `deepseek-harness`, `deepseek`, `cordis`, `medrec`
 
-The README pictures are generated programmatically by [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python + Pillow, light/dark SVG flow diagram) and are safe to re-run; the older single-version `dsh-medrec-qc-flow.svg` and the terminal captures are kept as-is so external links do not break.
+The README pictures are generated programmatically by [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) — the hero banner with Pillow, the structure diagram as hand-written SVG — and are safe to re-run; the older single-version `dsh-medrec-qc-flow.svg` and the terminal captures stay in `docs/assets/` for existing links, while the READMEs reference only the new hero (four files, zh/en × light/dark) and the flow-v5 diagram (light and dark).
 
 ## Family and thanks
 

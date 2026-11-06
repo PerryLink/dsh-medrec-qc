@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-medrec-qc-flow-dark.svg">
-  <img src="docs/assets/dsh-medrec-qc-flow-light.svg" width="100%" alt="dsh-medrec-qc 管线：file | material → parseMaterial → medrec_qc（rules/medrec-qc.yaml，15 条规则）→ buildView → report">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-medrec-qc-hero-zh-dark.webp">
+  <img src="docs/assets/dsh-medrec-qc-hero-zh-light.webp" width="100%" alt="dsh-medrec-qc 配图：左列是插件名与两行价值句；右侧是一份住院病案首页导出的 8 个栏目，「病案号」空着被红框标出，下方是 MR-001 差异卡（第 1 行 · 病案号，found / basis / source）与报告读数：1 条差异、14 条 skipped、error 1 · warn 0 · info 0">
 </picture>
 
 # dsh-medrec-qc
@@ -41,6 +41,11 @@ dsh plugin --profile <name> add dsh-medrec-qc
 诊断与性别不相容、死亡病例两条时间不一致这类需要人判断的情形，它只列出来交给人核实，不给结论。
 
 它读文件、出清单：不联网、不调用模型、不写盘，同一份材料可反复核对；换一份规则库就换一套检查。
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-medrec-qc-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-medrec-qc-flow-v5-light.svg" width="100%" alt="dsh-medrec-qc 结构图：材料经 parseMaterial() 归一为 21 个规范键；runCheck() 逐条执行 15 条规则，按严重级分 10 error / 4 warn / 1 info 三档；样例 quickstart 中 MR-001 命中，12 条已执行无差异，MR-012 缺列、MR-015 无死亡病例；没进差异清单的规则全部写进 skipped[] 并带原因；issues[] 与 skipped[] 经 buildView() 投影为 markdown / reportJson，结论留给审核人">
+</picture>
 
 ## 三步上手
 
@@ -399,7 +404,7 @@ node samples/quickstart/run.mjs   # 需要先 build
 
 Topics：`dsh`, `dsh-plugin`, `deepseek-harness`, `deepseek`, `cordis`, `medrec`
 
-README 配图由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成（Python + Pillow，深浅两版 SVG 流程图），可重复执行；旧的单版 `dsh-medrec-qc-flow.svg` 与终端截图保留不动，以免外链失效。
+README 配图由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成——hero 横幅用 Pillow 画、结构图用手写 SVG 画——可重复执行；旧的单版 `dsh-medrec-qc-flow.svg` 与终端截图保留在 `docs/assets/` 供外链使用，README 只引用新生成的 hero（`zh`/`en` × 深浅四版）与 flow-v5 结构图（深浅双版）。
 
 ## 家族与致谢
 
