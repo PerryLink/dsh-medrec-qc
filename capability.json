@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "tier": "L2-document",
+  "input_formats": [
+    "yaml",
+    "json",
+    "docx",
+    "pdf-text"
+  ],
+  "outputs": [
+    "markdown",
+    "json"
+  ],
+  "rules": {
+    "total": 15
+  },
+  "benchmark": {
+    "kind": "synthetic-fixtures",
+    "corpus_size": 15,
+    "note": "15 hand-written unsafe/compliant pairs; no real medical records, so no real-world P/R is claimed",
+    "measured_at": "2026-11-09"
+  },
+  "limits": [
+    "病历是敏感数据，本仓没有可公开的真实语料；P/R 无法在不取得脱敏数据的前提下计算",
+    "不判断诊疗是否正确，只核对记录要素与时间/签名等字面一致性",
+    "未取得真实语料前，只能把夹具通过率当回归信号，不能当生产 P/R"
+  ]
+}
