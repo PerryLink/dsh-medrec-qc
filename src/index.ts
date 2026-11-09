@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
-import { dirname, isAbsolute, resolve } from 'node:path'
+import { dirname, extname, isAbsolute, resolve } from 'node:path'
 import type { Context } from '@deepseek-ai/cordis'
 import { defineTool } from '@deepseek-ai/dsh-tools'
 import { Config } from './config.ts'
@@ -56,6 +56,23 @@ async function readMaterial(file: string | undefined, material: string | undefin
   if (file !== undefined && file.trim() !== '') {
     const path = resolve(file)
     signal.throwIfAborted()
+    const extension = extname(path).toLowerCase()
+    if (['.docx', '.xlsx', '.xlsm', '.csv', '.tsv'].includes(extension)) {
+      let ingestToTable: (source: Buffer, filename: string, options: Record<string, unknown>) => { ok: boolean; table?: { rows: Record<string, string>[]; columns: string[] }; error?: string }
+      try {
+        const api = (await import('dsh-table-ingest/api')) as {
+          ingestToTable: (source: Buffer, filename: string, options: Record<string, unknown>) => { ok: boolean; table?: { rows: Record<string, string>[]; columns: string[] }; error?: string }
+        }
+        ingestToTable = api.ingestToTable
+      } catch {
+        throw new MaterialError('要直接读 Word/Excel/CSV，请先安装 dsh-table-ingest（dsh plugin --profile <name> add dsh-table-ingest），或先把材料转成 JSON/YAML。')
+      }
+      const buffer = await readFile(path, { signal })
+      const table = ingestToTable(buffer, path, {})
+      if (!table.ok || table.table === undefined) throw new MaterialError(`无法从 ${path} 抽出表格：${table.error ?? '未知原因'}`)
+      const rows = table.table.rows.map((row) => Object.fromEntries(table.table!.columns.map((column) => [column, row[column] ?? ''])))
+      return { text: JSON.stringify({ target: path, cases: rows }), target: path }
+    }
     const text = await readFile(path, { encoding: 'utf8', signal })
     return { text, target: path }
   }
@@ -81,7 +98,7 @@ export function apply(ctx: Context, config: ConfigShape): () => void {
         '病案首页形式质控与逻辑矛盾提示（依据国卫办医发〔2016〕24号等公开文件，仅提示差异，不作出定性结论）本工具只列出材料与所引条款之间的字面差异，供人工复核，不作出任何定性结论。' +
         '材料为 JSON 或 YAML；无法执行的检查会列在 skipped 中。',
       parameters: {
-        file: { type: 'string', description: '材料文件绝对路径（JSON 或 YAML）。与 material 二选一。' },
+        file: { type: 'string', description: '材料文件绝对路径（JSON/YAML，或 .docx/.xlsx/.xlsm/.csv/.tsv；文档格式需安装 dsh-table-ingest）。与 material 二选一。' },
         material: { type: 'string', description: '内联材料文本（JSON 或 YAML）。与 file 二选一。' },
         rulesFile: { type: 'string', description: '覆盖配置中的规则库路径（相对插件包根或绝对路径）。' },
         only: {
