@@ -1,0 +1,152 @@
+[
+  {
+    "file": "corpus/MR-001-expected-state.yaml",
+    "ruleId": "MR-001",
+    "positive": false
+  },
+  {
+    "file": "corpus/MR-001-difference-present.yaml",
+    "ruleId": "MR-001",
+    "positive": true
+  },
+  {
+    "file": "corpus/MR-002-expected-state.yaml",
+    "ruleId": "MR-002",
+    "positive": false
+  },
+  {
+    "file": "corpus/MR-002-difference-present.yaml",
+    "ruleId": "MR-002",
+    "positive": true
+  },
+  {
+    "file": "corpus/MR-003-expected-state.yaml",
+    "ruleId": "MR-003",
+    "positive": false
+  },
+  {
+    "file": "corpus/MR-003-difference-present.yaml",
+    "ruleId": "MR-003",
+    "positive": true
+  },
+  {
+    "file": "corpus/MR-004-expected-state.yaml",
+    "ruleId": "MR-004",
+    "positive": false
+  },
+  {
+    "file": "corpus/MR-004-difference-present.yaml",
+    "ruleId": "MR-004",
+    "positive": true
+  },
+  {
+    "file": "corpus/MR-005-expected-state.yaml",
+    "ruleId": "MR-005",
+    "positive": false
+  },
+  {
+    "file": "corpus/MR-005-difference-present.yaml",
+    "ruleId": "MR-005",
+    "positive": true
+  },
+  {
+    "file": "corpus/MR-006-expected-state.yaml",
+    "ruleId": "MR-006",
+    "positive": false
+  },
+  {
+    "file": "corpus/MR-006-difference-present.yaml",
+    "ruleId": "MR-006",
+    "positive": true
+  },
+  {
+    "file": "corpus/MR-007-expected-state.yaml",
+    "ruleId": "MR-007",
+    "positive": false
+  },
+  {
+    "file": "corpus/MR-007-difference-present.yaml",
+    "ruleId": "MR-007",
+    "positive": true
+  },
+  {
+    "file": "corpus/MR-008-expected-state.yaml",
+    "ruleId": "MR-008",
+    "positive": false
+  },
+  {
+    "file": "corpus/MR-008-difference-present.yaml",
+    "ruleId": "MR-008",
+    "positive": true
+  },
+  {
+    "file": "corpus/MR-009-expected-state.yaml",
+    "ruleId": "MR-009",
+    "positive": false
+  },
+  {
+    "file": "corpus/MR-009-signature-cell-empty.yaml",
+    "ruleId": "MR-009",
+    "positive": true
+  },
+  {
+    "file": "corpus/MR-010-expected-state.yaml",
+    "ruleId": "MR-010",
+    "positive": false
+  },
+  {
+    "file": "corpus/MR-010-difference-present.yaml",
+    "ruleId": "MR-010",
+    "positive": true
+  },
+  {
+    "file": "corpus/MR-011-expected-state.yaml",
+    "ruleId": "MR-011",
+    "positive": false
+  },
+  {
+    "file": "corpus/MR-011-difference-present.yaml",
+    "ruleId": "MR-011",
+    "positive": true
+  },
+  {
+    "file": "corpus/MR-012-expected-state.yaml",
+    "ruleId": "MR-012",
+    "positive": false
+  },
+  {
+    "file": "corpus/MR-012-difference-present.yaml",
+    "ruleId": "MR-012",
+    "positive": true
+  },
+  {
+    "file": "corpus/MR-013-expected-state.yaml",
+    "ruleId": "MR-013",
+    "positive": false
+  },
+  {
+    "file": "corpus/MR-013-difference-present.yaml",
+    "ruleId": "MR-013",
+    "positive": true
+  },
+  {
+    "file": "corpus/MR-014-expected-state.yaml",
+    "ruleId": "MR-014",
+    "positive": false
+  },
+  {
+    "file": "corpus/MR-014-difference-present.yaml",
+    "ruleId": "MR-014",
+    "positive": true
+  },
+  {
+    "file": "corpus/MR-015-expected-state.yaml",
+    "ruleId": "MR-015",
+    "positive": false
+  },
+  {
+    "file": "corpus/MR-015-difference-present.yaml",
+    "ruleId": "MR-015",
+    "positive": true
+  }
+]

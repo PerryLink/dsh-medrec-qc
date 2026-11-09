@@ -29,7 +29,8 @@
     "samples",
     "TROUBLESHOOTING.md",
     "screenshots.json",
-    "capability.json"
+    "capability.json",
+    "bench"
   ],
   "scripts": {
     "build": "tsdown",
@@ -40,7 +41,8 @@
     "check:readmes": "node scripts/check-readme-sync.mjs",
     "prepublishOnly": "pnpm run typecheck && pnpm test && pnpm run build && pnpm run verify:self-contained && pnpm run check:lockfile && pnpm run check:readmes && pnpm run check:citations",
     "prepare": "tsdown",
-    "check:citations": "node scripts/check-citations.mjs"
+    "check:citations": "node scripts/check-citations.mjs",
+    "bench:corpus": "node bench/run.mjs"
   },
   "dsh": {
     "manifestVersion": 1,

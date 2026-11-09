@@ -15,9 +15,12 @@
     "total": 15
   },
   "benchmark": {
-    "kind": "synthetic-fixtures",
-    "corpus_size": 15,
-    "note": "15 hand-written unsafe/compliant pairs; no real medical records, so no real-world P/R is claimed",
+    "kind": "synthetic-corpus",
+    "corpus_size": 30,
+    "recall": 1,
+    "precision": 1,
+    "f1": 1,
+    "note": "assembled from the repository's 15 hand-written unsafe/compliant pairs; one defect each; not real medical records and not a real-world P/R",
     "measured_at": "2026-11-09"
   },
   "limits": [
