@@ -1,6 +1,6 @@
 # dsh-medrec-qc — Form check and logic-contradiction prompts for the inpatient medical record front sheet
 
-[English](README.md) · [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
+[English](README.md) · [简体中文](README-zh.md)
 
 ```sh
 dsh plugin --profile <name> add dsh-medrec-qc
