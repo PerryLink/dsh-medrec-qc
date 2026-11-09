@@ -11,7 +11,11 @@
       "default": "./lib/index.mjs"
     },
     "./locale/*.json": "./locale/*.json",
-    "./icon": "./icon.svg"
+    "./icon": "./icon.svg",
+    "./batch": {
+      "types": "./lib/batch.d.mts",
+      "default": "./lib/batch.mjs"
+    }
   },
   "files": [
     "lib",
@@ -27,7 +31,8 @@
     "TROUBLESHOOTING.md",
     "screenshots.json",
     "capability.json",
-    "bench"
+    "bench",
+    "bin"
   ],
   "scripts": {
     "build": "tsdown",
@@ -101,5 +106,8 @@
     "tsdown": "^0.22.14",
     "typescript": "^5.9.3"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "bin": {
+    "dsh-medrec-batch": "bin/medrec-batch.mjs"
+  }
 }
