@@ -1,0 +1,3 @@
+req_id,metric,threshold,actual,script,evidence_sha256,pass,source,counted
+CHK-MEDREC-QC-A01,vitest 真实运行,33/33,33,npx vitest run,f561bcb252edb8e03da7fe022661965ab35150bcfa0b16113294b53cb71e3185,true,public/synthetic,false
+CHK-MEDREC-QC-A02,失败用例数,0,0,npx vitest run,f561bcb252edb8e03da7fe022661965ab35150bcfa0b16113294b53cb71e3185,true,public/synthetic,false

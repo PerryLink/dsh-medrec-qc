@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="660" viewBox="0 0 1100 660" role="img" aria-labelledby="title desc">
+<title id="title">dsh-medrec-qc — 15 条规则的记分台</title>
+<desc id="desc">dsh-medrec-qc 结构图：左侧 file | material 经 parseMaterial() 归一为 21 个规范键；右侧 rules/medrec-qc.yaml 载入期校验 excerpt 不少于 8 字符，引文门禁逐字核对原文，并按依据等级封顶严重级；runCheck() 逐条执行 15 条规则，按严重级分成 10 error / 4 warn / 1 info 三档，样例 quickstart 中 MR-001 命中，12 条已执行无差异，MR-012 缺列、MR-015 无死亡病例；没进差异清单的规则全部写进 skipped[] 并带原因；issues[] 与 skipped[] 经 buildView() 投影为 markdown / reportJson，结论留给审核人。</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="0.25" y2="1"><stop offset="0" stop-color="#f9f6fd"/><stop offset="1" stop-color="#e4eaf8"/></linearGradient>
+<radialGradient id="glow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#4B67B4" stop-opacity="0.16"/><stop offset="1" stop-color="#4B67B4" stop-opacity="0"/></radialGradient>
+<filter id="soft" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="7" stdDeviation="10" flood-color="#2b2440" flood-opacity="0.12"/></filter>
+</defs>
+<rect width="1100" height="660" rx="22" fill="url(#bg)"/>
+<circle cx="900" cy="40" r="300" fill="url(#glow)"/>
+<text x="44" y="50" fill="#141419" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="26" font-weight="700">dsh-medrec-qc</text>
+<text x="44" y="76" fill="#4d5261" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13">15 条规则逐条执行，没有一条静默通过：命中进 issues[]，其余带原因进 skipped[]</text>
+<rect x="858" y="28" width="198" height="20" rx="10" fill="#ece7f9"/><text x="867" y="42" fill="#4B67B4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11">rules/medrec-qc.yaml · v2026.1</text>
+<line x1="44" y1="92" x2="1056" y2="92" stroke="#e7e4f0" stroke-width="1"/>
+<text x="44" y="108" fill="#4B67B4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="700" letter-spacing="1.1">01 · 读入</text>
+<rect x="44" y="116" width="1012" height="70" rx="16" fill="#ffffff" stroke="#e6e2ef" stroke-width="1.5" filter="url(#soft)"/>
+<line x1="400" y1="130" x2="400" y2="172" stroke="#e7e4f0"/>
+<line x1="728" y1="130" x2="728" y2="172" stroke="#e7e4f0"/>
+<text x="60" y="138" fill="#4B67B4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="700">材料 · IN</text>
+<text x="60" y="158" fill="#141419" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11">file | material · JSON / YAML</text>
+<text x="60" y="176" fill="#4d5261" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11">parseMaterial() → cases[] · 21 键</text>
+<text x="416" y="147" fill="#4B67B4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="15" font-weight="700">runCheck()</text>
+<text x="416" y="167" fill="#4d5261" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">行 × 栏 × 15 条</text>
+<text x="416" y="183" fill="#8f94a4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">只比字面，不判对错</text>
+<text x="744" y="138" fill="#4B67B4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="700">依据 · BASIS</text>
+<text x="744" y="158" fill="#141419" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11">rules/medrec-qc.yaml · v2026.1</text>
+<text x="744" y="176" fill="#4d5261" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">15 条 · excerpt ≥8 字符 · 引文门禁逐字核对</text>
+<text x="44" y="204" fill="#4B67B4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="700" letter-spacing="1.1">02 · 执行</text>
+<rect x="44" y="209" width="3" height="14" rx="1.5" fill="#b42318"/>
+<text x="54" y="220" fill="#b42318" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="12" font-weight="700" letter-spacing="1.4">ERROR</text>
+<text x="112" y="220" fill="#8f94a4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">10 条</text>
+<text x="1056" y="220" fill="#8f94a4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" text-anchor="end">全部 direct</text>
+<rect x="44" y="228" width="192.8" height="34" rx="11" fill="#ffffff" stroke="#e6e2ef" stroke-width="1"/>
+<rect x="45" y="235" width="3" height="20" rx="1.5" fill="#b42318"/>
+<text x="58" y="250" fill="#b42318" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">MR-001</text>
+<text x="120" y="250" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13">必填栏</text>
+<text x="216.8" y="251" fill="#b42318" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="18" font-weight="700" text-anchor="middle">×</text>
+<rect x="248.8" y="228" width="192.8" height="34" rx="11" fill="#ffffff" stroke="#e6e2ef" stroke-width="1"/>
+<rect x="249.8" y="235" width="3" height="20" rx="1.5" fill="#b42318"/>
+<text x="262.8" y="250" fill="#b42318" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">MR-002</text>
+<text x="324.8" y="250" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13">时间到分</text>
+<text x="421.6" y="251" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="20" font-weight="700" text-anchor="middle">·</text>
+<rect x="453.6" y="228" width="192.8" height="34" rx="11" fill="#ffffff" stroke="#e6e2ef" stroke-width="1"/>
+<rect x="454.6" y="235" width="3" height="20" rx="1.5" fill="#b42318"/>
+<text x="467.6" y="250" fill="#b42318" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">MR-003</text>
+<text x="529.6" y="250" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13">时间先后</text>
+<text x="626.4" y="251" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="20" font-weight="700" text-anchor="middle">·</text>
+<rect x="658.4" y="228" width="192.8" height="34" rx="11" fill="#ffffff" stroke="#e6e2ef" stroke-width="1"/>
+<rect x="659.4" y="235" width="3" height="20" rx="1.5" fill="#b42318"/>
+<text x="672.4" y="250" fill="#b42318" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">MR-004</text>
+<text x="734.4" y="250" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13">住院天数</text>
+<text x="831.2" y="251" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="20" font-weight="700" text-anchor="middle">·</text>
+<rect x="863.2" y="228" width="192.8" height="34" rx="11" fill="#ffffff" stroke="#e6e2ef" stroke-width="1"/>
+<rect x="864.2" y="235" width="3" height="20" rx="1.5" fill="#b42318"/>
+<text x="877.2" y="250" fill="#b42318" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">MR-005</text>
+<text x="939.2" y="250" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13">诊断配对</text>
+<text x="1036" y="251" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="20" font-weight="700" text-anchor="middle">·</text>
+<rect x="44" y="268" width="192.8" height="34" rx="11" fill="#ffffff" stroke="#e6e2ef" stroke-width="1"/>
+<rect x="45" y="275" width="3" height="20" rx="1.5" fill="#b42318"/>
+<text x="58" y="290" fill="#b42318" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">MR-006</text>
+<text x="120" y="290" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13">ICD-10</text>
+<text x="216.8" y="291" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="20" font-weight="700" text-anchor="middle">·</text>
+<rect x="248.8" y="268" width="192.8" height="34" rx="11" fill="#ffffff" stroke="#e6e2ef" stroke-width="1"/>
+<rect x="249.8" y="275" width="3" height="20" rx="1.5" fill="#b42318"/>
+<text x="262.8" y="290" fill="#b42318" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">MR-007</text>
+<text x="324.8" y="290" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13">手术配对</text>
+<text x="421.6" y="291" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="20" font-weight="700" text-anchor="middle">·</text>
+<rect x="453.6" y="268" width="192.8" height="34" rx="11" fill="#ffffff" stroke="#e6e2ef" stroke-width="1"/>
+<rect x="454.6" y="275" width="3" height="20" rx="1.5" fill="#b42318"/>
+<text x="467.6" y="290" fill="#b42318" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">MR-008</text>
+<text x="529.6" y="290" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13">ICD-9-CM-3</text>
+<text x="626.4" y="291" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="20" font-weight="700" text-anchor="middle">·</text>
+<rect x="658.4" y="268" width="192.8" height="34" rx="11" fill="#ffffff" stroke="#e6e2ef" stroke-width="1"/>
+<rect x="659.4" y="275" width="3" height="20" rx="1.5" fill="#b42318"/>
+<text x="672.4" y="290" fill="#b42318" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">MR-009</text>
+<text x="734.4" y="290" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13">三级签名</text>
+<text x="831.2" y="291" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="20" font-weight="700" text-anchor="middle">·</text>
+<rect x="863.2" y="268" width="192.8" height="34" rx="11" fill="#ffffff" stroke="#e6e2ef" stroke-width="1"/>
+<rect x="864.2" y="275" width="3" height="20" rx="1.5" fill="#b42318"/>
+<text x="877.2" y="290" fill="#b42318" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">MR-010</text>
+<text x="939.2" y="290" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13">离院代码</text>
+<text x="1036" y="291" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="20" font-weight="700" text-anchor="middle">·</text>
+<rect x="44" y="303" width="3" height="14" rx="1.5" fill="#b45309"/>
+<text x="54" y="314" fill="#b45309" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="12" font-weight="700" letter-spacing="1.4">WARN</text>
+<text x="112" y="314" fill="#8f94a4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">4 条</text>
+<text x="1056" y="314" fill="#8f94a4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" text-anchor="end">三项 direct · 一项 derived</text>
+<rect x="44" y="322" width="192.8" height="34" rx="11" fill="#ffffff" stroke="#e6e2ef" stroke-width="1"/>
+<rect x="45" y="329" width="3" height="20" rx="1.5" fill="#b45309"/>
+<text x="58" y="344" fill="#b45309" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">MR-011</text>
+<text x="120" y="344" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13">年龄形式</text>
+<text x="216.8" y="345" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="20" font-weight="700" text-anchor="middle">·</text>
+<rect x="248.8" y="322" width="192.8" height="34" rx="11" fill="#ffffff" stroke="#e6e2ef" stroke-width="1"/>
+<rect x="249.8" y="329" width="3" height="20" rx="1.5" fill="#b45309"/>
+<text x="262.8" y="344" fill="#b45309" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">MR-012</text>
+<text x="324.8" y="344" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13">新生儿体重</text>
+<text x="421.6" y="345" fill="#b45309" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="18" font-weight="700" text-anchor="middle">–</text>
+<rect x="453.6" y="322" width="192.8" height="34" rx="11" fill="#ffffff" stroke="#e6e2ef" stroke-width="1"/>
+<rect x="454.6" y="329" width="3" height="20" rx="1.5" fill="#b45309"/>
+<text x="467.6" y="344" fill="#b45309" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">MR-013</text>
+<text x="529.6" y="344" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13">其他诊断</text>
+<text x="626.4" y="345" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="20" font-weight="700" text-anchor="middle">·</text>
+<rect x="658.4" y="322" width="192.8" height="34" rx="11" fill="#ffffff" stroke="#e6e2ef" stroke-width="1"/>
+<rect x="659.4" y="329" width="3" height="20" rx="1.5" fill="#b45309"/>
+<text x="672.4" y="344" fill="#b45309" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">MR-014</text>
+<text x="734.4" y="344" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13">性别×诊断</text>
+<text x="831.2" y="345" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="20" font-weight="700" text-anchor="middle">·</text>
+<rect x="44" y="357" width="3" height="14" rx="1.5" fill="#5a6478"/>
+<text x="54" y="368" fill="#5a6478" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="12" font-weight="700" letter-spacing="1.4">INFO</text>
+<text x="112" y="368" fill="#8f94a4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">1 条</text>
+<rect x="44" y="376" width="192.8" height="34" rx="11" fill="#ffffff" stroke="#e6e2ef" stroke-width="1"/>
+<rect x="45" y="383" width="3" height="20" rx="1.5" fill="#5a6478"/>
+<text x="58" y="398" fill="#5a6478" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">MR-015</text>
+<text x="120" y="398" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13">死亡时间</text>
+<text x="216.8" y="399" fill="#b45309" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="18" font-weight="700" text-anchor="middle">–</text>
+<text x="300" y="389" fill="#4d5261" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">依据 第八条「出院时间」定义</text>
+<text x="300" y="404" fill="#8f94a4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">推导提示 · 封顶 info · 不作阻断</text>
+<text x="44" y="436" fill="#4B67B4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="700" letter-spacing="1.1">03 · 归账</text>
+<text x="150" y="436" fill="#b42318" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">× 差异 → issues[]</text>
+<text x="296" y="436" fill="#4d5261" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">· 已执行 · 无差异</text>
+<text x="456" y="436" fill="#b45309" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">– 不适用 / 缺列</text>
+<text x="1056" y="436" fill="#8f94a4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" text-anchor="end">严重级封顶：derived ≤ warn · institutional ≤ info</text>
+<rect x="44" y="450" width="496" height="118" rx="18" fill="#ffffff" stroke="#e6e2ef" stroke-width="1.5" filter="url(#soft)"/>
+<rect x="556" y="450" width="500" height="118" rx="18" fill="#ffffff" stroke="#e6e2ef" stroke-width="1.5" filter="url(#soft)"/>
+<rect x="47" y="466" width="4" height="86" rx="2" fill="#b42318"/>
+<text x="64" y="478" fill="#b42318" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="14" font-weight="700">issues[]</text>
+<rect x="482" y="464" width="38" height="20" rx="10" fill="#fdeeec"/><text x="491" y="478" fill="#b42318" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">1 条</text>
+<text x="64" y="504" fill="#b42318" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="12" font-weight="700">MR-001</text>
+<rect x="120" y="492" width="44" height="20" rx="10" fill="#fdeeec"/><text x="127" y="506" fill="#b42318" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">error</text>
+<text x="180" y="504" fill="#4d5261" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">第 1 行 · 病案号</text>
+<text x="64" y="530" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13">「病案号」为空</text>
+<text x="64" y="554" fill="#4d5261" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">依据 附件1 注：必填栏不能为空项</text>
+<rect x="559" y="466" width="4" height="86" rx="2" fill="#4d5261"/>
+<text x="576" y="478" fill="#4d5261" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="14" font-weight="700">skipped[]</text>
+<rect x="992" y="464" width="44" height="20" rx="10" fill="#eef0f5"/><text x="1001" y="478" fill="#4d5261" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">14 条</text>
+<text x="576" y="502" fill="#4d5261" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">没进差异清单的规则都在这里，各带原因</text>
+<text x="1036" y="502" fill="#8f94a4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" text-anchor="end">样例 quickstart</text>
+<rect x="576" y="512" width="90" height="20" rx="10" fill="#fdf3e9"/><text x="585" y="526" fill="#b45309" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">缺列 · MR-012</text>
+<rect x="676" y="512" width="101" height="20" rx="10" fill="#fdf3e9"/><text x="685" y="526" fill="#b45309" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">不适用 · MR-015</text>
+<rect x="576" y="538" width="122" height="20" rx="10" fill="#eef0f5"/><text x="585" y="552" fill="#4d5261" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">已执行 · 无差异 12 条</text>
+<rect x="708" y="538" width="139" height="20" rx="10" fill="#eef0f5"/><text x="717" y="552" fill="#8f94a4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">停用 / 范围外（本例无）</text>
+<text x="1036" y="552" fill="#4B67B4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" text-anchor="end">15 条规则，全部有下落</text>
+<line x1="44" y1="578" x2="1056" y2="578" stroke="#e7e4f0"/>
+<text x="44" y="600" fill="#4B67B4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="700" letter-spacing="1.1">04 · 投影</text>
+<text x="150" y="600" fill="#4B67B4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="12" font-weight="700">buildView()</text>
+<text x="256" y="600" fill="#4d5261" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11">→ markdown · reportJson · summary{error,warn,info} · rulesetVersion</text>
+<text x="1056" y="600" fill="#4B67B4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" text-anchor="end">措辞守卫 · 交人复核 · 不判合规</text>
+<text x="44" y="630" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11">config · rulesFile · disabledRules · onlyRules · skipNotes · timeoutMs</text>
+<text x="1056" y="630" fill="#8f94a4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11" text-anchor="end">只读 · 不联网 · 不调用模型 · 不写盘</text>
+</svg>
