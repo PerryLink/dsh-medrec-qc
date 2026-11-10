@@ -1,0 +1,115 @@
+{
+  "dataset": "Synthea sample_complete_patient.json (Apache-2.0)",
+  "source": "https://github.com/synthetichealth/synthea/blob/master/src/test/resources/flexporter/sample_complete_patient.json",
+  "cases": 37,
+  "generatedAt": "2026-11-10T11:40:49.653Z",
+  "scope": "detection on mapped Synthea rows; staff fields and ICD-specific rules excluded",
+  "excludedRules": [
+    "MR-006",
+    "MR-008",
+    "MR-009",
+    "MR-011",
+    "MR-012",
+    "MR-013"
+  ],
+  "byRule": [
+    {
+      "rule": "MR-001",
+      "clean": 37,
+      "tp": 20,
+      "fp": 0,
+      "fn": 0,
+      "tn": 20,
+      "precision": 1,
+      "recall": 1
+    },
+    {
+      "rule": "MR-002",
+      "clean": 37,
+      "tp": 20,
+      "fp": 0,
+      "fn": 0,
+      "tn": 20,
+      "precision": 1,
+      "recall": 1
+    },
+    {
+      "rule": "MR-003",
+      "clean": 37,
+      "tp": 20,
+      "fp": 0,
+      "fn": 0,
+      "tn": 20,
+      "precision": 1,
+      "recall": 1
+    },
+    {
+      "rule": "MR-004",
+      "clean": 37,
+      "tp": 20,
+      "fp": 0,
+      "fn": 0,
+      "tn": 20,
+      "precision": 1,
+      "recall": 1
+    },
+    {
+      "rule": "MR-005",
+      "clean": 37,
+      "tp": 20,
+      "fp": 0,
+      "fn": 0,
+      "tn": 20,
+      "precision": 1,
+      "recall": 1
+    },
+    {
+      "rule": "MR-007",
+      "clean": 37,
+      "tp": 20,
+      "fp": 0,
+      "fn": 0,
+      "tn": 20,
+      "precision": 1,
+      "recall": 1
+    },
+    {
+      "rule": "MR-010",
+      "clean": 37,
+      "tp": 20,
+      "fp": 0,
+      "fn": 0,
+      "tn": 20,
+      "precision": 1,
+      "recall": 1
+    },
+    {
+      "rule": "MR-014",
+      "clean": 37,
+      "tp": 20,
+      "fp": 0,
+      "fn": 0,
+      "tn": 20,
+      "precision": 1,
+      "recall": 1
+    },
+    {
+      "rule": "MR-015",
+      "clean": 37,
+      "tp": 20,
+      "fp": 0,
+      "fn": 0,
+      "tn": 20,
+      "precision": 1,
+      "recall": 1
+    }
+  ],
+  "total": {
+    "tp": 180,
+    "fp": 0,
+    "fn": 0,
+    "tn": 180,
+    "precision": 1,
+    "recall": 1
+  }
+}
