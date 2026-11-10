@@ -2,7 +2,7 @@
   "dataset": "Synthea sample_complete_patient.json (Apache-2.0)",
   "source": "https://github.com/synthetichealth/synthea/blob/master/src/test/resources/flexporter/sample_complete_patient.json",
   "cases": 37,
-  "generatedAt": "2026-11-10T11:55:20.050Z",
+  "generatedAt": "2026-11-10T12:17:43.357Z",
   "scope": "detection on mapped Synthea rows; staff fields and ICD-specific rules excluded",
   "excludedRules": [
     "MR-006",

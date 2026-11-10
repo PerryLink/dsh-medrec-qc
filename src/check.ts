@@ -594,9 +594,16 @@ export function runCheck(input: MedrecInput, ruleset: Ruleset, options: CheckOpt
     fired: new Set<string>(),
     skipReasons: new Map<string, string>(),
   }
+  const add = makeAdd(base)
   const context: RuleContext = {
     ...base,
-    add: makeAdd(base),
+    // `only` must suppress findings from unselected rules, not merely label
+    // them skipped. Otherwise a caller that asks for one rule still receives
+    // mandatory-looking findings from the rest of the pack.
+    add: (ruleId, locator, found, expected, fix) => {
+      if (disabled.has(ruleId) || (only.size > 0 && !only.has(ruleId))) return
+      add(ruleId, locator, found, expected, fix)
+    },
     skip: (ruleId, reason) => {
       const existing = base.skipReasons.get(ruleId)
       base.skipReasons.set(ruleId, existing === undefined ? reason : `${existing}；${reason}`)
