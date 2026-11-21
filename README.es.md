@@ -47,6 +47,11 @@ Lee un archivo y devuelve una lista: sin red, sin llamadas al modelo, sin escrit
   <img src="docs/assets/dsh-medrec-qc-flow-v5-light.svg" width="100%" alt="Estructura de dsh-medrec-qc: parseMaterial() normaliza la exportación en 21 claves canónicas; runCheck() ejecuta las 15 reglas en tres niveles de gravedad (10 error / 4 warn / 1 info); en la muestra quickstart MR-001 se dispara, 12 reglas se ejecutan sin diferencias, MR-012 no tiene columna y MR-015 no tiene caso de fallecimiento; toda regla sin diferencia se escribe en skipped[] con su motivo; buildView() proyecta issues[] y skipped[] en markdown / reportJson, y la conclusión queda en manos de quien revisa">
 </picture>
 
+![dsh-medrec-qc: ejecución real de terminal](docs/assets/dsh-medrec-qc-demo.gif)
+
+*Repetición animada de una ejecución real registrada en este repositorio.*
+
+
 ## Instalación en tres pasos
 
 1. **Instala** (publicado en npm):

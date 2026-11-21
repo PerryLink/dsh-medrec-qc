@@ -47,6 +47,11 @@ dsh plugin --profile <name> add dsh-medrec-qc
   <img src="docs/assets/dsh-medrec-qc-flow-v5-light.svg" width="100%" alt="dsh-medrec-qc संरचना: parseMaterial() एक्सपोर्ट को 21 मानक कुंजियों में सामान्य करता है; runCheck() सभी 15 नियम तीन गंभीरता-स्तरों (10 error / 4 warn / 1 info) में चलाता है; quickstart नमूने में MR-001 पकड़ में आता है, 12 नियम बिना अंतर के चलते हैं, MR-012 में कॉलम नहीं है और MR-015 में मृत्यु-मामला नहीं है; जिस नियम में अंतर नहीं मिला वह कारण सहित skipped[] में जाता है; buildView() issues[] और skipped[] को markdown / reportJson में प्रोजेक्ट करता है, और निर्णय समीक्षक के पास रहता है">
 </picture>
 
+![dsh-medrec-qc का असली टर्मिनल रन](docs/assets/dsh-medrec-qc-demo.gif)
+
+*इस रिपॉज़िटरी में दर्ज असली रन का एनिमेटेड रीप्ले।*
+
+
 ## तीन चरणों में शुरुआत
 
 1. **इंस्टॉल करें** (npm पर प्रकाशित):

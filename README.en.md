@@ -119,6 +119,10 @@ Every PerryLink plugin is listed in the built-in DSH Desktop market: **Market â†
 
 ### Examples
 
+![dsh-medrec-qc: real terminal run](docs/assets/dsh-medrec-qc-demo.gif)
+
+*Animated replay of a real run recorded in this repository.*
+
 **Detailed walkthrough** â€” tool `medrec_qc`.
 
 **Input**
