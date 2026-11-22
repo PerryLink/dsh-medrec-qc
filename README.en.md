@@ -7,6 +7,8 @@
 
 # dsh-medrec-qc
 
+Current version `0.2.16`.
+
 **Check one inpatient front-sheet export and get back a line-by-line list of which row, which column, what differs, and which clause says so.**
 
 A DeepSeek Harness checker for medical-record rooms and quality-control teams: the rule pack is data, every finding carries its citation, and it lists differences only — it never rules.
