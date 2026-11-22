@@ -1,6 +1,6 @@
 {
   "name": "dsh-medrec-qc",
-  "version": "0.2.13",
+  "version": "0.2.15",
   "description": "病案首页形式质控与逻辑矛盾提示（依据国卫办医发〔2016〕24号等公开文件，仅提示差异，不作出定性结论）",
   "type": "module",
   "main": "lib/index.mjs",
@@ -88,12 +88,12 @@
   },
   "engines": {
     "node": "^22.19.0 || >=24.0.0",
-    "dsh": ">=0.2.1-0 <0.3.0"
+    "dsh": ">=0.2.1-0 <0.3.0 || >=0.2.3-0 <0.3.0-0"
   },
   "packageManager": "pnpm@11.7.0",
   "peerDependencies": {
     "@deepseek-ai/cordis": "^4.0.2",
-    "@deepseek-ai/dsh-tools": ">=0.1.2-rc.1 <0.2.0 || >=0.2.0-0 <0.3.0",
+    "@deepseek-ai/dsh-tools": ">=0.1.2-rc.1 <0.2.0 || >=0.2.0-0 <0.3.0 || >=0.2.3-0 <0.3.0-0",
     "@deepseek-ai/schemastery": "^3.18.2"
   },
   "devDependencies": {

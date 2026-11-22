@@ -11,6 +11,8 @@
 
 面向病案室与质控科的 DeepSeek Harness 检查器：规则库与代码分离，每条差异都带条款出处；只列差异，不下结论。
 
+最近一次核验：DeepSeek Harness `dsh-v0.2.3-alpha.1`（2026-11-22）。
+
 [安装](#三步上手) · [配置](#配置) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
@@ -311,7 +313,7 @@ profile patch 覆盖示例：
 <details>
 <summary>装的时候报版本不兼容怎么办？`check` 报 `manifest-peers` 失败呢？</summary>
 
-对等范围覆盖 `0.1.x` 与 `0.2.x` 两代。若运行时在其之外，可显式豁免：`dsh plugin --profile <name> allow-version dsh-medrec-qc@0.2.13 --dsh-version <runtime> --accept-risk`。`check` 报 `manifest-peers` 失败是 `dsh-plugin-dev` 的已知上游问题：静态检查器比对的是一份早于 0.2 世代的硬编码范围，安装期以运行时校验为准。更多排障见 [TROUBLESHOOTING.md](TROUBLESHOOTING.md)。
+对等范围覆盖 `0.1.x` 与 `0.2.x` 两代。若运行时在其之外，可显式豁免：`dsh plugin --profile <name> allow-version dsh-medrec-qc@0.2.15 --dsh-version <runtime> --accept-risk`。`check` 报 `manifest-peers` 失败是 `dsh-plugin-dev` 的已知上游问题：静态检查器比对的是一份早于 0.2 世代的硬编码范围，安装期以运行时校验为准。更多排障见 [TROUBLESHOOTING.md](TROUBLESHOOTING.md)。
 
 </details>
 

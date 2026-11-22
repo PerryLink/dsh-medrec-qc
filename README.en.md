@@ -11,6 +11,8 @@
 
 A DeepSeek Harness checker for medical-record rooms and quality-control teams: the rule pack is data, every finding carries its citation, and it lists differences only — it never rules.
 
+Last verified on DeepSeek Harness `dsh-v0.2.3-alpha.1` (2026-11-22).
+
 [Install](#three-step-setup) · [Configuration](#configuration) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
@@ -317,7 +319,7 @@ No. It does not adjudicate compliance, liability, or clinical correctness, and i
 <details>
 <summary>What if install refuses the package as incompatible? What about a failing `manifest-peers` in `check`?</summary>
 
-The peer range covers the `0.1.x` and `0.2.x` lines. If your runtime sits outside it, grant an explicit exemption: `dsh plugin --profile <name> allow-version dsh-medrec-qc@0.2.13 --dsh-version <runtime> --accept-risk`. A failing `manifest-peers` in `check` is a known upstream issue in `dsh-plugin-dev`: the static checker compares against a hard-coded range that predates the 0.2 line, while the install-time check uses the runtime. More in [TROUBLESHOOTING.md](TROUBLESHOOTING.md).
+The peer range covers the `0.1.x` and `0.2.x` lines. If your runtime sits outside it, grant an explicit exemption: `dsh plugin --profile <name> allow-version dsh-medrec-qc@0.2.15 --dsh-version <runtime> --accept-risk`. A failing `manifest-peers` in `check` is a known upstream issue in `dsh-plugin-dev`: the static checker compares against a hard-coded range that predates the 0.2 line, while the install-time check uses the runtime. More in [TROUBLESHOOTING.md](TROUBLESHOOTING.md).
 
 </details>
 

@@ -11,6 +11,8 @@
 
 मेडिकल रिकॉर्ड विभाग और गुणवत्ता-नियंत्रण टीमों के लिए DeepSeek Harness चेकर: नियम पैक डेटा है, हर निष्कर्ष के साथ उसका उद्धरण आता है, और यह केवल अंतर गिनाता है — कभी फ़ैसला नहीं करता।
 
+अंतिम सत्यापन: DeepSeek Harness `dsh-v0.2.3-alpha.1` (2026-11-22).
+
 [इंस्टॉल](#तीन-चरणों-में-शुरुआत) · [कॉन्फ़िगरेशन](#कॉन्फ़िगरेशन) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
@@ -50,7 +52,6 @@ dsh plugin --profile <name> add dsh-medrec-qc
 ![dsh-medrec-qc का असली टर्मिनल रन](docs/assets/dsh-medrec-qc-demo.gif)
 
 *इस रिपॉज़िटरी में दर्ज असली रन का एनिमेटेड रीप्ले।*
-
 
 ## तीन चरणों में शुरुआत
 
@@ -318,7 +319,7 @@ cases:
 <details>
 <summary>अगर इंस्टॉल असंगति कहकर पैकेज न ले? और `check` में `manifest-peers` विफल हो तो?</summary>
 
-पीयर-रेंज `0.1.x` और `0.2.x` दोनों पंक्तियों को कवर करती है। यदि आपका रनटाइम उससे बाहर है, तो स्पष्ट छूट दें: `dsh plugin --profile <name> allow-version dsh-medrec-qc@0.2.13 --dsh-version <runtime> --accept-risk`। `check` में `manifest-peers` विफल होना `dsh-plugin-dev` की ज्ञात अपस्ट्रीम समस्या है: स्थिर चेकर 0.2 पंक्ति से पुरानी कठोर-कोडित रेंज से तुलना करता है, जबकि इंस्टॉल-समय की जाँच रनटाइम का उपयोग करती है। अधिक [TROUBLESHOOTING.md](TROUBLESHOOTING.md) में।
+पीयर-रेंज `0.1.x` और `0.2.x` दोनों पंक्तियों को कवर करती है। यदि आपका रनटाइम उससे बाहर है, तो स्पष्ट छूट दें: `dsh plugin --profile <name> allow-version dsh-medrec-qc@0.2.15 --dsh-version <runtime> --accept-risk`। `check` में `manifest-peers` विफल होना `dsh-plugin-dev` की ज्ञात अपस्ट्रीम समस्या है: स्थिर चेकर 0.2 पंक्ति से पुरानी कठोर-कोडित रेंज से तुलना करता है, जबकि इंस्टॉल-समय की जाँच रनटाइम का उपयोग करती है। अधिक [TROUBLESHOOTING.md](TROUBLESHOOTING.md) में।
 
 </details>
 

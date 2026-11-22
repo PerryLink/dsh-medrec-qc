@@ -11,6 +11,8 @@
 
 Un verificador de DeepSeek Harness para archivos clínicos y equipos de control de calidad: el paquete de reglas es dato, cada hallazgo lleva su cita, y solo enumera diferencias — nunca dictamina.
 
+Última verificación: DeepSeek Harness `dsh-v0.2.3-alpha.1` (2026-11-22).
+
 [Instalar](#instalación-en-tres-pasos) · [Configuración](#configuración) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
@@ -50,7 +52,6 @@ Lee un archivo y devuelve una lista: sin red, sin llamadas al modelo, sin escrit
 ![dsh-medrec-qc: ejecución real de terminal](docs/assets/dsh-medrec-qc-demo.gif)
 
 *Repetición animada de una ejecución real registrada en este repositorio.*
-
 
 ## Instalación en tres pasos
 
@@ -318,7 +319,7 @@ No. No juzga el cumplimiento, la responsabilidad ni la corrección clínica, y n
 <details>
 <summary>¿Y si la instalación rechaza el paquete por incompatibilidad? ¿Y un `manifest-peers` fallido en `check`?</summary>
 
-El rango de pares cubre las líneas `0.1.x` y `0.2.x`. Si tu entorno queda fuera, concede una exención explícita: `dsh plugin --profile <name> allow-version dsh-medrec-qc@0.2.13 --dsh-version <runtime> --accept-risk`. Un `manifest-peers` fallido en `check` es un problema conocido de `dsh-plugin-dev`: el verificador estático compara con un rango fijo anterior a la línea 0.2, mientras que la comprobación de instalación usa el entorno. Más en [TROUBLESHOOTING.md](TROUBLESHOOTING.md).
+El rango de pares cubre las líneas `0.1.x` y `0.2.x`. Si tu entorno queda fuera, concede una exención explícita: `dsh plugin --profile <name> allow-version dsh-medrec-qc@0.2.15 --dsh-version <runtime> --accept-risk`. Un `manifest-peers` fallido en `check` es un problema conocido de `dsh-plugin-dev`: el verificador estático compara con un rango fijo anterior a la línea 0.2, mientras que la comprobación de instalación usa el entorno. Más en [TROUBLESHOOTING.md](TROUBLESHOOTING.md).
 
 </details>
 

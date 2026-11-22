@@ -11,6 +11,8 @@
 
 Um verificador do DeepSeek Harness para arquivos médicos e equipes de controle de qualidade: o pacote de regras é dado, cada achado carrega sua citação, e ele apenas lista diferenças — nunca julga.
 
+Última verificação: DeepSeek Harness `dsh-v0.2.3-alpha.1` (2026-11-22).
+
 [Instalar](#instalação-em-três-passos) · [Configuração](#configuração) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
@@ -50,7 +52,6 @@ Ele lê um arquivo e devolve uma lista: sem rede, sem chamada ao modelo, sem gra
 ![dsh-medrec-qc: execução real de terminal](docs/assets/dsh-medrec-qc-demo.gif)
 
 *Repetição animada de uma execução real registrada neste repositório.*
-
 
 ## Instalação em três passos
 
@@ -318,7 +319,7 @@ Não. Ele não julga conformidade, responsabilidade nem correção clínica, e n
 <details>
 <summary>E se a instalação recusar o pacote por incompatibilidade? E um `manifest-peers` falhando no `check`?</summary>
 
-O intervalo de pares cobre as linhas `0.1.x` e `0.2.x`. Se o seu runtime ficar fora, conceda uma isenção explícita: `dsh plugin --profile <name> allow-version dsh-medrec-qc@0.2.13 --dsh-version <runtime> --accept-risk`. Um `manifest-peers` falhando no `check` é um problema conhecido do `dsh-plugin-dev`: o verificador estático compara com um intervalo fixo anterior à linha 0.2, enquanto a checagem de instalação usa o runtime. Mais em [TROUBLESHOOTING.md](TROUBLESHOOTING.md).
+O intervalo de pares cobre as linhas `0.1.x` e `0.2.x`. Se o seu runtime ficar fora, conceda uma isenção explícita: `dsh plugin --profile <name> allow-version dsh-medrec-qc@0.2.15 --dsh-version <runtime> --accept-risk`. Um `manifest-peers` falhando no `check` é um problema conhecido do `dsh-plugin-dev`: o verificador estático compara com um intervalo fixo anterior à linha 0.2, enquanto a checagem de instalação usa o runtime. Mais em [TROUBLESHOOTING.md](TROUBLESHOOTING.md).
 
 </details>
 
